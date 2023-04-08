@@ -88,3 +88,9 @@ for t = 0:0.1:tp+th+tf
     saveas(gcf, filename, 'png');
 end
 
+clf('reset');
+ts = time(1);
+te = time(end);
+fr = 1;
+clear M;
+
