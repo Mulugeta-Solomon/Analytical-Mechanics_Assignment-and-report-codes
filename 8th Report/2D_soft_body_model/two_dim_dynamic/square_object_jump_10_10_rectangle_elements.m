@@ -18,4 +18,9 @@ npoints = size(points,2);
 nrectangles = size(rectangles,1);
 elastic = Body(npoints, points, [], [], thickness);
 elastic = elastic.rectangle_elements(nrectangles, rectangles);
+elastic = elastic.mechanical_parameters(density, lambda, mu);
+elastic = elastic.viscous_parameters(lambda_vis, mu_vis);
+elastic = elastic.calculate_stiffness_matrix;
+elastic = elastic.calculate_damping_matrix;
+
 
