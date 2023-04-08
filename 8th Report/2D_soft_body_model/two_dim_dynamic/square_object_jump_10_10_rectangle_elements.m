@@ -64,3 +64,9 @@ square_object_free = @(t,q) square_object_free_param(t,q, elastic);
 time = [time_push; time_hold; time_free];
 q = [q_push; q_hold; q_free];
 
+figure('position', [0, 0, 400, 800]);
+set(0,'defaultAxesFontSize',16);
+set(0,'defaultTextFontSize',16);
+floor_color = [0.85 0.85 0.85];
+
+
