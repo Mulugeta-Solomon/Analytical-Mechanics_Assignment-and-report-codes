@@ -28,3 +28,8 @@ tp = 0.5; vpush = 0.8*(height/3)/tp;
 th = 0.5;
 tf = 0.5;
 
+alpha = 1e+6;
+
+index_floor = 1:10;
+index_push = 94:97;
+
