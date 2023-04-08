@@ -14,4 +14,8 @@ Young = 10.0*1e+6; c = 0.4*1e+3; nu = 0.48; density = 1.00;
 [lambda_vis, mu_vis] = Lame_constants(c, nu);
 
 
+npoints = size(points,2);
+nrectangles = size(rectangles,1);
+elastic = Body(npoints, points, [], [], thickness);
+
 
