@@ -87,3 +87,9 @@ classdef Triangle
                 ( obj.lambda * ( obj.Green_strain(1) + obj.Green_strain(2) )^2 + ...
                   obj.mu * ( 2*obj.Green_strain(1)^2 + 2*obj.Green_strain(2)^2 + obj.Green_strain(3)^2 ) );
         end
+
+         function energy = partial_gravitational_potential_energy(obj, disps, grav)
+            vs = obj.Vertices;
+            ui = disps(:,vs(1)); uj = disps(:,vs(2)); uk = disps(:,vs(3));
+            energy = - (obj.Density*obj.Area*obj.Thickness) * grav' *(ui+uj+uk)/3;
+        end
