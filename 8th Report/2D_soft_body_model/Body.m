@@ -300,3 +300,15 @@ classdef Body
                 obj.Inertia_Matrix(loc,loc) = obj.Inertia_Matrix(loc,loc) + M_p;
             end
         end
+
+        function obj = calculate_gravitational_vector(obj, g)
+            obj.Gravitational_Vector = zeros(2*obj.numNodalPoints, 1);
+            for p=1:obj.numTriangles
+                tri = obj.Triangles(p);
+                vs = tri.Vertices;
+                i = vs(1); j = vs(2); k = vs(3);
+                [obj.Triangles(p), grav_p] = tri.partial_gravitational_vector(g);
+                loc = [ 2*i-1, 2*i, 2*j-1, 2*j, 2*k-1, 2*k ];
+                obj.Gravitational_Vector(loc) = obj.Gravitational_Vector(loc) + grav_p;
+            end
+        end
