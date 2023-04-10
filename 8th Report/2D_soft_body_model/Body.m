@@ -92,3 +92,13 @@ classdef Body
                 end
                 obj.Rectangles = rc;
             end
+
+            for p=1:obj.numRectangles
+                rct = obj.Rectangles(p);
+                vs = rct.Vertices;
+                i = vs(1); j = vs(2); k = vs(3); l = vs(4);
+                loc = [ 2*i-1, 2*i, 2*j-1, 2*j, 2*k-1, 2*k, 2*l-1, 2*l ];
+                obj.J_lambda(loc,loc) = obj.J_lambda(loc,loc) + rct.Partial_J_lambda;
+                obj.J_mu(loc,loc)     = obj.J_mu(loc,loc)     + rct.Partial_J_mu;
+            end
+        end
