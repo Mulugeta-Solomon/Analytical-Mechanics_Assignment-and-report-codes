@@ -391,3 +391,19 @@ classdef Body
             obj.SubRegions(r).Partial_J_lambda = pJl;
             obj.SubRegions(r).Partial_J_mu     = pJm;
         end
+         function obj = subregion_mechanical_parameters(obj, rho, l, m, k)
+            arguments
+                obj; rho; l; m;
+                k = obj.numSubRegions;
+            end
+            obj.SubRegions(k).Density = rho;
+            obj.SubRegions(k).lambda  = l;
+            obj.SubRegions(k).mu      = m;
+            for p = obj.SubRegions(k).Index_Triangles
+                obj.Triangles(p).Density = rho;
+                obj.Triangles(p).lambda  = l;
+                obj.Triangles(p).mu      = m;
+            end
+        end
+
+
