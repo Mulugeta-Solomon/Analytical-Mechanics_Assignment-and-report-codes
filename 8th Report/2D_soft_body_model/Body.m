@@ -369,3 +369,25 @@ classdef Body
             obj.SubRegions = [ obj.SubRegions, SubRegion(index, index_rects, index_npoints) ];
             obj = obj.subregion_partial_connection_matrices;
         end
+
+         function obj = subregion_partial_connection_matrices(obj)
+            r = obj.numSubRegions;
+            npoints = obj.SubRegions(r).numNodalPoints;
+            pJl = zeros(2*npoints, 2*npoints);
+            pJm = zeros(2*npoints, 2*npoints);
+            
+            list = obj.SubRegions(r).Index_NodalPoints;
+            %%obj.SubRegions(r).Index_Triangles
+            for p=obj.SubRegions(r).Index_Triangles
+                tri = obj.Triangles(p);
+                vs = tri.Vertices;
+                i = vs(1); j = vs(2); k = vs(3);
+                ip = find(list==i); jp = find(list==j); kp = find(list==k);
+                loc = [ 2*ip-1, 2*ip, 2*jp-1, 2*jp, 2*kp-1, 2*kp ];
+                pJl(loc,loc) = pJl(loc,loc) + tri.Partial_J_lambda;
+                pJm(loc,loc) = pJm(loc,loc) + tri.Partial_J_mu;
+            end
+            
+            obj.SubRegions(r).Partial_J_lambda = pJl;
+            obj.SubRegions(r).Partial_J_mu     = pJm;
+        end
