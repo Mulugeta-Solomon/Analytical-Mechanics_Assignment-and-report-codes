@@ -47,3 +47,11 @@ classdef Triangle
             obj.lambda = l; obj.mu = m;
         end
         
+        function obj = partial_derivaties(obj, ui, uj, uk)
+            gamma_u =  [ ui(1); uj(1); uk(1) ];
+            gamma_v =  [ ui(2); uj(2); uk(2) ];
+            obj.u_x = obj.vector_a' * gamma_u;
+            obj.u_y = obj.vector_b' * gamma_u;
+            obj.v_x = obj.vector_a' * gamma_v;
+            obj.v_y = obj.vector_b' * gamma_v;
+        end
