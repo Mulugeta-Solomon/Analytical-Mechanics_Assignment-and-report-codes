@@ -208,3 +208,29 @@ classdef Body
                 hold on;
             end
         end
+
+        function output = draw_individual_rectangles( obj, disps, color )
+            arguments
+                obj;
+                disps = zeros(2, obj.numNodalPoints);
+                color = [0.9, 0.9, 0.9];
+            end
+            for p=1:obj.numRectangles
+                rct = obj.Rectangles(p);
+                vs = rct.Vertices;
+                i = vs(1); j = vs(2); k = vs(3); l = vs(4);
+                np = obj.NodalPoints;
+                xi = np(i).Coordinates + disps(:,i);
+                xj = np(j).Coordinates + disps(:,j);
+                xk = np(k).Coordinates + disps(:,k);
+                xl = np(l).Coordinates + disps(:,l);
+                points = [ xi, xj, xk, xl, xi ];
+                plot(points(1,:), points(2,:), 'k-');
+                if isempty(obj.Rectangles(p).color)
+                    fill(points(1,:), points(2,:), color);
+                else
+                    fill(points(1,:), points(2,:), obj.Rectangles(p).color)
+                end
+                hold on;
+            end
+        end
