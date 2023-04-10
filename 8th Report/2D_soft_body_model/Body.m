@@ -406,4 +406,17 @@ classdef Body
             end
         end
 
+        function obj = subregion_viscous_parameters(obj, lv, mv, k)
+            arguments
+                obj; lv; mv;
+                k = obj.numSubRegions;
+            end
+            obj.SubRegions(k).lambda_vis  = lv;
+            obj.SubRegions(k).mu_vis      = mv;
+            for p = obj.SubRegions(k).Index_Triangles
+                obj.Triangles(p).lambda_vis  = lv;
+                obj.Triangles(p).mu_vis      = mv;
+            end
+        end
+
 
