@@ -162,3 +162,24 @@ classdef Body
                energy = energy + tri.partial_gravitational_potential_energy(disps, grav);
             end
         end
+
+        function output = draw( obj, disps, color )
+            arguments
+                obj;
+                disps = zeros(2, obj.numNodalPoints);
+                color = [0.9, 0.9, 0.9];
+            end
+            for p=1:obj.numTriangles
+                tri = obj.Triangles(p);
+                vs = tri.Vertices;
+                i = vs(1); j = vs(2); k = vs(3);
+                np = obj.NodalPoints;
+                xi = np(i).Coordinates + disps(:,i);
+                xj = np(j).Coordinates + disps(:,j);
+                xk = np(k).Coordinates + disps(:,k);
+                points = [ xi, xj, xk, xi ];
+                plot(points(1,:), points(2,:), 'k-');
+                fill(points(1,:), points(2,:), color);
+                hold on;
+            end
+        end
