@@ -488,4 +488,16 @@ classdef Body
             forces = reshape( [ pdiv(1:np), pdiv(np+1:2*np) ]', [ 2*np,1] );
         end
 
+        function area = surrounded_area(obj, index, disps)
+            arguments
+                obj; index;
+                disps = zeros(2,length(index));
+            end
+            cords = [];
+            for i = index
+                cords = [ cords, obj.NodalPoints(i).Coordinates ];
+            end
+            area = polygon_area (cords + disps);
+        end
+
 
