@@ -32,3 +32,8 @@ classdef Triangle
             lvu = vol*b*a'; lvv = vol*b*b';
             muu = 2*luu + lvv; muv = lvu;
             mvu = luv; mvv = 2*lvv + luu;
+
+            
+            
+            l = [ luu, luv; lvu, lvv ];
+            m = [ muu, muv; mvu, mvv ];
