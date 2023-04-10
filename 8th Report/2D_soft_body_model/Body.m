@@ -256,3 +256,25 @@ classdef Body
                 obj.Stiffness_Matrix(loc,loc) = obj.Stiffness_Matrix(loc,loc) + K_p;
             end
         end
+
+         function obj = calculate_damping_matrix(obj)
+            obj.Damping_Matrix = zeros(2*obj.numNodalPoints, 2*obj.numNodalPoints);
+            %
+            for p=1:obj.numTriangles
+                tri = obj.Triangles(p);
+                vs = tri.Vertices;
+                i = vs(1); j = vs(2); k = vs(3);
+                [obj.Triangles(p), B_p] = tri.partial_damping_matrix;
+                loc = [ 2*i-1, 2*i, 2*j-1, 2*j, 2*k-1, 2*k ];
+                obj.Damping_Matrix(loc,loc) = obj.Damping_Matrix(loc,loc) + B_p;
+            end
+            %
+            for p=1:obj.numRectangles
+                rct = obj.Rectangles(p);
+                vs = rct.Vertices;
+                i = vs(1); j = vs(2); k = vs(3); l = vs(4);
+                [obj.Rectangles(p), B_p] = rct.partial_damping_matrix;
+                loc = [ 2*i-1, 2*i, 2*j-1, 2*j, 2*k-1, 2*k, 2*l-1, 2*l ];
+                obj.Damping_Matrix(loc,loc) = obj.Damping_Matrix(loc,loc) + B_p;
+            end
+        end
