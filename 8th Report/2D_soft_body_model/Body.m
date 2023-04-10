@@ -354,3 +354,18 @@ classdef Body
                 end
             end
         end
+
+        function obj = define_subregion(obj, index, index_rects)
+            arguments
+                obj; index;
+                index_rects = [];
+            end
+            if isempty(obj.numSubRegions)
+                obj.numSubRegions = 0;
+            end
+            [index, index_rects, index_npoints] = obj.extract_index_for_subregion(index, index_rects);
+            
+            obj.numSubRegions = obj.numSubRegions + 1;
+            obj.SubRegions = [ obj.SubRegions, SubRegion(index, index_rects, index_npoints) ];
+            obj = obj.subregion_partial_connection_matrices;
+        end
