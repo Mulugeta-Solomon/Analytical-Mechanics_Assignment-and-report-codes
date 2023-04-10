@@ -419,4 +419,22 @@ classdef Body
             end
         end
 
+        function obj = subregion_color(obj, cl, k)
+            arguments
+                obj; cl;
+                k = obj.numSubRegions;
+            end
+            obj.SubRegions(k).color = cl;
+            if obj.SubRegions(k).Index_Triangles
+                for p = obj.SubRegions(k).Index_Triangles
+                    obj.Triangles(p).color = cl;
+                end
+            end
+            if obj.SubRegions(k).Index_Rectangles
+                for p = obj.SubRegions(k).Index_Rectangles
+                    obj.Rectangles(p).color = cl;
+                end
+            end
+        end
+
 
