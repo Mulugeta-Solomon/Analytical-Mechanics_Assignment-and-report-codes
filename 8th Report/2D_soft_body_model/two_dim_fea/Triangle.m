@@ -37,3 +37,9 @@ classdef Triangle
             
             l = [ luu, luv; lvu, lvv ];
             m = [ muu, muv; mvu, mvv ];
+
+            obj.Partial_J_lambda = l([1,4,2,5,3,6], [1,4,2,5,3,6]);
+            obj.Partial_J_mu     = m([1,4,2,5,3,6], [1,4,2,5,3,6]);
+        end
+        
+            
