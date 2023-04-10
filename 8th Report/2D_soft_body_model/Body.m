@@ -468,4 +468,24 @@ classdef Body
             end
         end
 
+        function obj = calculate_coefficient_matrices_for_Green_strain(obj)
+            [ obj.coef_order_one, obj.coef_order_two, obj.c2i, obj.c2j, obj.coef_order_three, obj.c3i, obj.c3j, obj.c3k ] = ...
+                calcuclate_coefficient_matrices_for_Green_strain_forces (obj);
+        end
+        
+        function forces = nodal_forces_Green_strain(obj, disps)
+            c_u = disps(1,:)'; c_v = disps(2,:)';
+            c_uu = c_u(obj.c2i).*c_u(obj.c2j); c_uv = c_u(obj.c2i).*c_v(obj.c2j); c_vv = c_v(obj.c2i).*c_v(obj.c2j);
+            c_uuu = c_u(obj.c3i).*c_u(obj.c3j).*c_u(obj.c3k); c_uvv = c_u(obj.c3i).*c_v(obj.c3j).*c_v(obj.c3k);
+            c_vuu = c_v(obj.c3i).*c_u(obj.c3j).*c_u(obj.c3k); c_vvv = c_v(obj.c3i).*c_v(obj.c3j).*c_v(obj.c3k);
+            term_order_one = obj.coef_order_one * [ c_u; c_v ];
+            term_order_two = obj.coef_order_two * [ c_uu; c_uv; c_vv ];
+            term_order_three_u = obj.coef_order_three * [ c_uuu; c_uvv ];
+            term_order_three_v = obj.coef_order_three * [ c_vuu; c_vvv ];
+            term_order_three = [ term_order_three_u; term_order_three_v ];
+            pdiv = - term_order_one - term_order_two - term_order_three;
+            np = obj.numNodalPoints;
+            forces = reshape( [ pdiv(1:np), pdiv(np+1:2*np) ]', [ 2*np,1] );
+        end
+
 
