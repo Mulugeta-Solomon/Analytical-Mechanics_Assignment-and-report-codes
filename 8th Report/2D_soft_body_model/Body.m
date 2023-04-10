@@ -65,3 +65,15 @@ classdef Body
                     onlyone(p+loc) = 0;
                 end
             end
+
+            onlyone = setdiff(onlyone, 0);
+            obj.BoundaryEdges = edges(onlyone, :);
+            
+            [ ncontours, contours, order ] = edges_to_contours (obj.BoundaryEdges);
+            obj.numContours = ncontours;
+            for p=1:ncontours
+                [contour_p, area_p] = extract_contour(p, contours, order, obj.BoundaryEdges, points );
+                ct(p) = Contour(size(contour_p,1), contour_p, area_p);
+            end
+            obj.Contours = ct;
+        end
