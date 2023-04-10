@@ -93,3 +93,8 @@ classdef Triangle
             ui = disps(:,vs(1)); uj = disps(:,vs(2)); uk = disps(:,vs(3));
             energy = - (obj.Density*obj.Area*obj.Thickness) * grav' *(ui+uj+uk)/3;
         end
+
+         function obj = calculate_partial_stiffness_matrix(obj)            
+            obj.Partial_Stiffness_Matrix = ...
+                obj.lambda * obj.Partial_J_lambda + obj.mu * obj.Partial_J_mu;
+        end
