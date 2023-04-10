@@ -515,5 +515,18 @@ classdef Body
             area_gradient(2*index-1) = area_x;
             area_gradient(2*index)   = area_y;
         end
+        function position = positional_vectors(obj, disps)
+            arguments
+                obj;
+                disps = zeros(2,obj.numNodalPoints);
+            end
+            position = [];
+            for i=1:obj.numNodalPoints
+                position = [ position, obj.NodalPoints(i).Coordinates + disps(:,i) ];
+            end
+        end
+    end
+end
+
 
 
