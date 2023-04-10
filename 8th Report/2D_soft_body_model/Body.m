@@ -500,4 +500,20 @@ classdef Body
             area = polygon_area (cords + disps);
         end
 
+        function area_gradient = surrounded_area_gradient(obj, index, disps)
+            arguments
+                obj; index;
+                disps = zeros(2,length(index));
+            end
+            cords = [];
+            for i = index
+                cords = [ cords, obj.NodalPoints(i).Coordinates ];
+            end
+            [ area_x, area_y ] = polygon_area_gradient (cords + disps);
+
+            area_gradient = zeros(2*obj.numNodalPoints, 1);
+            area_gradient(2*index-1) = area_x;
+            area_gradient(2*index)   = area_y;
+        end
+
 
