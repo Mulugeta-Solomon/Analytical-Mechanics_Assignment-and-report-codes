@@ -24,3 +24,11 @@ classdef Triangle
             obj.Thickness = h;
             obj.vector_a = ( 1/(2*obj.Area))*[ pj(2)-pk(2); pk(2)-pi(2); pi(2)-pj(2) ];
             obj.vector_b = (-1/(2*obj.Area))*[ pj(1)-pk(1); pk(1)-pi(1); pi(1)-pj(1) ];
+
+            a = obj.vector_a;
+            b = obj.vector_b;
+            vol = obj.Area * obj.Thickness;
+            luu = vol*a*a'; luv = vol*a*b';
+            lvu = vol*b*a'; lvv = vol*b*b';
+            muu = 2*luu + lvv; muv = lvu;
+            mvu = luv; mvv = 2*lvv + luu;
