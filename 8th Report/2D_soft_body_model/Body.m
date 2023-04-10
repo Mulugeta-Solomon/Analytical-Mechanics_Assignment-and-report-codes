@@ -46,3 +46,11 @@ classdef Body
                 obj.J_lambda(loc,loc) = obj.J_lambda(loc,loc) + tri.Partial_J_lambda;
                 obj.J_mu(loc,loc)     = obj.J_mu(loc,loc)     + tri.Partial_J_mu;
             end
+
+            edges = [];
+            for p=1:obj.numTriangles
+                tri = obj.Triangles(p);
+                vs = tri.Vertices;
+                i = vs(1); j = vs(2); k = vs(3);
+                edges = [ edges; i, j; j, k; k, i ];
+            end
