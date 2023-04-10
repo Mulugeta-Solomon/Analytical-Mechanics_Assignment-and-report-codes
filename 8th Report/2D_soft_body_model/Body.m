@@ -321,3 +321,21 @@ classdef Body
                 A(2*index(k),   2*k)   = 1;
             end
         end
+
+         function [index, index_rects, index_npoints] = extract_index_for_subregion(obj, index, index_rects)
+            for r=1:obj.numSubRegions
+                common = intersect(index, obj.SubRegions(r).Index_Triangles);
+                if common
+                    fprintf("%d ", common);
+                    fprintf('already in another subregion\n');
+                    index = setdiff(index, common);
+                end
+                %
+                common_rects = intersect(index_rects, obj.SubRegions(r).Index_Rectangles);
+                if common_rects
+                    fprintf("%d ", common_rects);
+                    fprintf('rectangles already in another subregion\n');
+                    index_rects = setdiff(index_rects, common_rects);
+                end
+            end
+            
