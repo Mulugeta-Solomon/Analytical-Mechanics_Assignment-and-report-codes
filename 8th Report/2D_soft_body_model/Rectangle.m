@@ -84,3 +84,10 @@ classdef Rectangle
                  I, 2*I, 4*I, 2*I; ...
                  2*I, I, 2*I, 4*I];
         end
+
+        function [obj, M_p] = partial_inertia_matrix(obj)
+            if isempty( obj.Partial_Inertia_Matrix )
+                obj = obj.calculate_partial_inertia_matrix;
+            end
+            M_p = obj.Partial_Inertia_Matrix;
+        end
