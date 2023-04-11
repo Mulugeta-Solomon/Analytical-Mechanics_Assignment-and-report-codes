@@ -50,3 +50,8 @@ classdef Triangle
             obj.v_x = obj.vector_a' * gamma_v;
             obj.v_y = obj.vector_b' * gamma_v;
         end
+
+        function obj = calculate_Cauchy_strain(obj, ui, uj, uk)
+            obj = obj.partial_derivaties (ui, uj, uk);
+            obj.Cauchy_strain = [ obj.u_x; obj.v_y;  obj.u_y + obj.v_x ];
+        end
