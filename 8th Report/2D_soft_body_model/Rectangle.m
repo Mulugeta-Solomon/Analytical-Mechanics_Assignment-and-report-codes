@@ -123,3 +123,11 @@ classdef Rectangle
                 obj.lambda * ( Exx + Eyy ).^2 + ...
                 obj.mu * ( 2*Exx.^2 + 2*Eyy.^2 + Sxy.^2 );
         end
+
+        function energy = partial_strain_potential_energy_Green_strain(obj, disps)
+            h = obj.Thickness;
+            vs = obj.Vertices;
+            ui = disps(:,vs(1)); uj = disps(:,vs(2)); uk = disps(:,vs(3)); ul = disps(:,vs(4));
+            integrand = @(xi,eta) obj.strain_potential_energy_density_Green_strain(ui, uj, uk, ul, xi, eta);
+            energy = h * integral2( integrand, 0, obj.length_x, 0, obj.length_y );
+        end
