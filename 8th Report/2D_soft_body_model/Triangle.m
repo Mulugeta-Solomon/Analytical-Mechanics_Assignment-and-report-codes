@@ -129,3 +129,10 @@ classdef Triangle
             obj.Partial_Gravitational_Vector = mass/3 * [ g; g; g ]; 
         end
 
+        function [obj, grav_p] = partial_gravitational_vector(obj, g)
+            if isempty( obj.Partial_Gravitational_Vector )
+                obj = obj.calculate_partial_gravitational_vector(g);
+            end
+            grav_p = obj.Partial_Gravitational_Vector;
+        end
+
