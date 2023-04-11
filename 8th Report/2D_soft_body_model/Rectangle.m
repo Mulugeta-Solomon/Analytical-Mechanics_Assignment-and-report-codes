@@ -43,3 +43,7 @@ classdef Rectangle
             obj.Partial_J_lambda = l([1,5,2,6,3,7,4,8], [1,5,2,6,3,7,4,8]);
             obj.Partial_J_mu     = m([1,5,2,6,3,7,4,8], [1,5,2,6,3,7,4,8]);
         end
+        function obj = mechanical_parameters(obj, rho, l, m)
+            obj.Density = rho;
+            obj.lambda = l; obj.mu = m;
+        end
