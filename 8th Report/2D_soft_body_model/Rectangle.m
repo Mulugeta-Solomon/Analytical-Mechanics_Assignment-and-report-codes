@@ -131,3 +131,14 @@ classdef Rectangle
             integrand = @(xi,eta) obj.strain_potential_energy_density_Green_strain(ui, uj, uk, ul, xi, eta);
             energy = h * integral2( integrand, 0, obj.length_x, 0, obj.length_y );
         end
+
+        function area = area_increase(obj, disps)
+            vs = obj.Vertices;
+            ui = disps(:,vs(1)); uj = disps(:,vs(2)); uk = disps(:,vs(3)); ul = disps(:,vs(4));
+            pik = [ obj.length_x; obj.length_y] + (uk - ui);
+            pjl = [-obj.length_x; obj.length_y] + (ul - uj);
+            area = (1/2)*det([pik,pjl]) - obj.Area;
+        end
+        
+    end
+end
