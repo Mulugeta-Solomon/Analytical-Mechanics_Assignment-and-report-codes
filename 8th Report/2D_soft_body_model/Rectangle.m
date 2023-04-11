@@ -52,3 +52,13 @@ classdef Rectangle
             obj.Partial_Stiffness_Matrix = ...
                 obj.lambda * obj.Partial_J_lambda + obj.mu * obj.Partial_J_mu;
         end
+
+        %function [obj, K_p, Jlambda_p, Jmu_p] = partial_stiffness_matrix(obj)
+        function [obj, K_p] = partial_stiffness_matrix(obj)
+            if isempty( obj.Partial_Stiffness_Matrix )
+                obj = obj.calculate_partial_stiffness_matrix;
+            end
+            K_p = obj.Partial_Stiffness_Matrix;
+            %Jlambda_p = obj.Partial_J_lambda;
+            %Jmu_p =     obj.Partial_J_mu;
+        end
