@@ -124,3 +124,8 @@ classdef Triangle
             M_p = obj.Partial_Inertia_Matrix;
         end
 
+        function obj = calculate_partial_gravitational_vector(obj, g)
+            mass = obj.Density * obj.Area * obj.Thickness;
+            obj.Partial_Gravitational_Vector = mass/3 * [ g; g; g ]; 
+        end
+
