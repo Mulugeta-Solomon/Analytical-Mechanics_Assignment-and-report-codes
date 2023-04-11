@@ -110,3 +110,10 @@ classdef Triangle
             end
             B_p = obj.Partial_Damping_Matrix;
         end
+        function obj = calculate_partial_inertia_matrix(obj)
+            mass = obj.Density * obj.Area * obj.Thickness;
+            I = eye(2);
+            obj.Partial_Inertia_Matrix = (mass/12) * ...
+                [2*I, I, I; I, 2*I, I; I, I, 2*I];
+        end
+
