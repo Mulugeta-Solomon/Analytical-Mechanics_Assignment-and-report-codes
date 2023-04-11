@@ -47,3 +47,8 @@ classdef Rectangle
             obj.Density = rho;
             obj.lambda = l; obj.mu = m;
         end
+
+        function obj = calculate_partial_stiffness_matrix(obj)
+            obj.Partial_Stiffness_Matrix = ...
+                obj.lambda * obj.Partial_J_lambda + obj.mu * obj.Partial_J_mu;
+        end
