@@ -67,3 +67,10 @@ classdef Rectangle
             obj.Partial_Damping_Matrix = ...
                 obj.lambda_vis * obj.Partial_J_lambda + obj.mu_vis * obj.Partial_J_mu;
         end
+
+         function [obj, B_p] = partial_damping_matrix(obj)
+            if isempty( obj.Partial_Damping_Matrix )
+                obj = obj.calculate_partial_damping_matrix;
+            end
+            B_p = obj.Partial_Damping_Matrix;
+        end
