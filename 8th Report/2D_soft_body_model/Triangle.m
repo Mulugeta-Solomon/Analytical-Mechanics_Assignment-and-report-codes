@@ -55,3 +55,12 @@ classdef Triangle
             obj = obj.partial_derivaties (ui, uj, uk);
             obj.Cauchy_strain = [ obj.u_x; obj.v_y;  obj.u_y + obj.v_x ];
         end
+
+        function energy = partial_strain_potential_energy(obj, disps)
+            vs = obj.Vertices;
+            ui = disps(:,vs(1)); uj = disps(:,vs(2)); uk = disps(:,vs(3));
+            obj = obj.calculate_Cauchy_strain(ui, uj, uk);
+            energy = (1/2) * (obj.Area * obj.Thickness) * ...
+                ( obj.lambda * ( obj.Cauchy_strain(1) + obj.Cauchy_strain(2) )^2 + ...
+                  obj.mu * ( 2*obj.Cauchy_strain(1)^2 + 2*obj.Cauchy_strain(2)^2 + obj.Cauchy_strain(3)^2 ) );
+        end
