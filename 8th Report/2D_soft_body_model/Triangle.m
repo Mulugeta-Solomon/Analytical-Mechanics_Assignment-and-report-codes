@@ -136,3 +136,16 @@ classdef Triangle
             grav_p = obj.Partial_Gravitational_Vector;
         end
 
+        function [fi, fj, fk] = nodal_forces_Cauchy_strain(obj, ui, uj, uk)
+            a = obj.vector_a;
+            b = obj.vector_b;
+            obj = obj.calculate_Cauchy_strain (ui, uj, uk);
+            mat = obj.lambda*[1,1,0; 1,1,0; 0,0,0] + obj.mu*[2,0,0; 0,2,0; 0,0,1];
+            Up_e = mat*obj.Cauchy_strain*obj.Area*obj.Thickness;
+            Up_gammau = [ a, zeros(3,1), b ]*Up_e;
+            Up_gammav = [ zeros(3,1), b, a ]*Up_e;
+            fi = - [ Up_gammau(1); Up_gammav(1) ];
+            fj = - [ Up_gammau(2); Up_gammav(2) ];
+            fk = - [ Up_gammau(3); Up_gammav(3) ];
+        end
+
