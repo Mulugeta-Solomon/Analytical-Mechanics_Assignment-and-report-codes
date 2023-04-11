@@ -109,3 +109,17 @@ classdef Rectangle
             integrand = @(xi,eta) obj.strain_potential_energy_density(ui, uj, uk, ul, xi, eta);
             energy = integral2( integrand, 0, obj.length_x, 0, obj.length_y );
         end
+
+        function energy_density = strain_potential_energy_density_Green_strain(obj, ui, uj, uk, ul, xi, eta)
+            lx = obj.length_x; ly = obj.length_y;
+            u_x = (1/obj.Area)*( -(ly-eta)*ui(1) +(ly-eta)*uj(1) +eta*uk(1)    -eta *ul(1) );
+            u_y = (1/obj.Area)*( -(lx- xi)*ui(1)      -xi *uj(1) +xi *uk(1) +(lx-xi)*ul(1) );
+            v_x = (1/obj.Area)*( -(ly-eta)*ui(2) +(ly-eta)*uj(2) +eta*uk(2)    -eta *ul(2) );
+            v_y = (1/obj.Area)*( -(lx- xi)*ui(2)      -xi *uj(2) +xi *uk(2) +(lx-xi)*ul(2) );
+            Exx = u_x + (1/2)*(u_x.^2 + v_x.^2);
+            Eyy = v_y + (1/2)*(u_y.^2 + v_y.^2);
+            Sxy = u_y + v_x + (u_x.*u_y + v_x.*v_y);
+            energy_density = ...
+                obj.lambda * ( Exx + Eyy ).^2 + ...
+                obj.mu * ( 2*Exx.^2 + 2*Eyy.^2 + Sxy.^2 );
+        end
