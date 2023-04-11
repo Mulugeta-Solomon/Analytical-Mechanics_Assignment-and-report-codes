@@ -62,3 +62,8 @@ classdef Rectangle
             %Jlambda_p = obj.Partial_J_lambda;
             %Jmu_p =     obj.Partial_J_mu;
         end
+
+        function obj = calculate_partial_damping_matrix(obj)
+            obj.Partial_Damping_Matrix = ...
+                obj.lambda_vis * obj.Partial_J_lambda + obj.mu_vis * obj.Partial_J_mu;
+        end
