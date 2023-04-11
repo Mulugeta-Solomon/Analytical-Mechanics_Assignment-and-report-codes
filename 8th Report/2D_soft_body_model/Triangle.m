@@ -37,3 +37,7 @@ classdef Triangle
             obj.Partial_J_lambda = l([1,4,2,5,3,6], [1,4,2,5,3,6]);
             obj.Partial_J_mu     = m([1,4,2,5,3,6], [1,4,2,5,3,6]);
         end
+        function obj = mechanical_parameters(obj, rho, l, m)
+            obj.Density = rho;
+            obj.lambda = l; obj.mu = m;
+        end
