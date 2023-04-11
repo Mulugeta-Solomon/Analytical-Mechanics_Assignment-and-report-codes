@@ -91,3 +91,14 @@ classdef Rectangle
             end
             M_p = obj.Partial_Inertia_Matrix;
         end
+
+        function energy_density = strain_potential_energy_density(obj, ui, uj, uk, ul, xi, eta)
+            lx = obj.length_x; ly = obj.length_y;
+            u_x = (1/obj.Area)*( -(ly-eta)*ui(1) +(ly-eta)*uj(1) +eta*uk(1)    -eta *ul(1) );
+            u_y = (1/obj.Area)*( -(lx- xi)*ui(1)      -xi *uj(1) +xi *uk(1) +(lx-xi)*ul(1) );
+            v_x = (1/obj.Area)*( -(ly-eta)*ui(2) +(ly-eta)*uj(2) +eta*uk(2)    -eta *ul(2) );
+            v_y = (1/obj.Area)*( -(lx- xi)*ui(2)      -xi *uj(2) +xi *uk(2) +(lx-xi)*ul(2) );
+            energy_density = ...
+                obj.lambda * ( u_x + v_y ).^2 + ...
+                obj.mu * ( 2*u_x.^2 + 2*v_y.^2 + (u_y + v_x).^2 );
+        end
