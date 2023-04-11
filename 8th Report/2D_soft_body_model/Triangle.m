@@ -149,3 +149,20 @@ classdef Triangle
             fk = - [ Up_gammau(3); Up_gammav(3) ];
         end
 
+        function [fi, fj, fk] = nodal_forces_Green_strain(obj, ui, uj, uk)
+            a = obj.vector_a;
+            b = obj.vector_b;
+            obj = obj.calculate_Green_strain (ui, uj, uk);
+            mat = obj.lambda*[1,1,0; 1,1,0; 0,0,0] + obj.mu*[2,0,0; 0,2,0; 0,0,1];
+            Up_E = mat*obj.Green_strain*obj.Area*obj.Thickness;
+            ux = obj.u_x; uy = obj.u_y; vx = obj.v_x; vy = obj.v_y;
+            Up_gammau = [ (1+ux)*a, uy*b, (1+ux)*b+uy*a ]*Up_E;
+            Up_gammav = [ vx*a, (1+vy)*b, (1+vy)*a+vx*b ]*Up_E;
+            fi = - [ Up_gammau(1); Up_gammav(1) ];
+            fj = - [ Up_gammau(2); Up_gammav(2) ];
+            fk = - [ Up_gammau(3); Up_gammav(3) ];
+        end
+
+    end
+end
+
