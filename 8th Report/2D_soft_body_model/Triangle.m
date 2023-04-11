@@ -71,3 +71,12 @@ classdef Triangle
                 obj.v_y + (1/2)*(obj.u_y^2 + obj.v_y^2); ...
                 obj.u_y + obj.v_x + (obj.u_x*obj.u_y + obj.v_x*obj.v_y) ];
         end
+
+        function energy = partial_strain_potential_energy_Green_strain(obj, disps)
+            vs = obj.Vertices;
+            ui = disps(:,vs(1)); uj = disps(:,vs(2)); uk = disps(:,vs(3));
+            obj = obj.calculate_Green_strain(ui, uj, uk);
+            energy = (1/2) * (obj.Area * obj.Thickness) * ...
+                ( obj.lambda * ( obj.Green_strain(1) + obj.Green_strain(2) )^2 + ...
+                  obj.mu * ( 2*obj.Green_strain(1)^2 + 2*obj.Green_strain(2)^2 + obj.Green_strain(3)^2 ) );
+        end
