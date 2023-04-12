@@ -225,3 +225,7 @@ classdef Body
                 forces(3*l-2:3*l) = forces(3*l-2:3*l) + fl;
             end
         end
+
+        function forces = nodal_forces_Green_strain(obj, disps)
+            nodal_forces_Green_strain_original(obj, disps);
+        end
