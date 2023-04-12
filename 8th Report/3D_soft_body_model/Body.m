@@ -80,3 +80,12 @@ classdef Body
                 obj.Tetrahedra(p).mu      = m;
             end
         end
+
+        function obj = viscous_parameters(obj, lv, mv)
+            obj.lambda_vis = lv;
+            obj.mu_vis     = mv;
+            for p=1:obj.numTetrahedra
+                obj.Tetrahedra(p).lambda_vis  = lv;
+                obj.Tetrahedra(p).mu_vis      = mv;
+            end
+        end
