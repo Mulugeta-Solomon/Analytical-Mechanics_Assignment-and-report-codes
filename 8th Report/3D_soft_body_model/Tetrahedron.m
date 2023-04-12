@@ -160,3 +160,8 @@ classdef Tetrahedron
             end
             M_p = obj.Partial_Inertia_Matrix;
         end
+
+        function obj = calculate_partial_gravitational_vector(obj, g)
+            mass = obj.Density * obj.Volume;
+            obj.Partial_Gravitational_Vector = mass/4 * [ g; g; g; g ]; 
+        end
