@@ -134,3 +134,8 @@ classdef Tetrahedron
             end
             K_p = obj.Partial_Stiffness_Matrix;
         end
+
+        function obj = calculate_partial_damping_matrix(obj)
+            obj.Partial_Damping_Matrix = ...
+                obj.lambda_vis * obj.Partial_J_lambda + obj.mu_vis * obj.Partial_J_mu;
+        end
