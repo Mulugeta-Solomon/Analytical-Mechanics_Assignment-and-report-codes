@@ -49,4 +49,16 @@ classdef Body_ThreeElementModel < Body
                 obj.Triangles(p) = obj.Triangles(p).mechanical_parameters(rho, l, m, lv1, mv1, lv2, mv2);
             end
         end
+
+        function [ps, pe] = flambda_fmu_location_corresponding_to_subregions(obj)
+            count = [];
+            for p=1:obj.numSubRegions
+                count = [ count, obj.SubRegions(p).numNodalPoints ];
+            end
+            ps(1) = 1; pe(1) = 2*count(1);
+            for p=2:obj.numSubRegions
+                ps(p) = pe(p-1) + 1;
+                pe(p) = ps(p) -1 + 2*count(p);
+            end
+        end
         
