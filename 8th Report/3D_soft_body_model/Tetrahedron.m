@@ -153,3 +153,10 @@ classdef Tetrahedron
             obj.Partial_Inertia_Matrix = (mass/20) * ...
                 [2*I, I, I, I; I, 2*I, I, I; I, I, 2*I, I; I, I, I, 2*I];
         end
+
+        function [obj, M_p] = partial_inertia_matrix(obj)
+            if isempty( obj.Partial_Inertia_Matrix )
+                obj = obj.calculate_partial_inertia_matrix;
+            end
+            M_p = obj.Partial_Inertia_Matrix;
+        end
