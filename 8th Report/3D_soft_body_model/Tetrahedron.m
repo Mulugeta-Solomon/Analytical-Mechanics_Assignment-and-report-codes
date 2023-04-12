@@ -56,3 +56,8 @@ classdef Tetrahedron
             obj.Partial_J_lambda = l(enum, enum);
             obj.Partial_J_mu     = m(enum, enum);
         end
+
+        function obj = mechanical_parameters(obj, rho, l, m)
+            obj.Density = rho;
+            obj.lambda = l; obj.mu = m;
+        end
