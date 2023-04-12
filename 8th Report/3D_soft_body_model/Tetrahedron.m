@@ -189,3 +189,32 @@ classdef Tetrahedron
             fk = - [ Up_gammau(3); Up_gammav(3); Up_gammaw(3) ];
             fl = - [ Up_gammau(4); Up_gammav(4); Up_gammaw(4) ];
         end
+
+        function [fi, fj, fk, fl] = nodal_forces_Green_strain(obj, ui, uj, uk, ul)
+            a = obj.vector_a;
+            b = obj.vector_b;
+            c = obj.vector_c;
+            obj = obj.calculate_Green_strain (ui, uj, uk, ul);
+            mat = obj.lambda*[ones(3,3), zeros(3,3); zeros(3,3), zeros(3,3)] + ...
+                      obj.mu*diag([2, 2, 2, 1, 1, 1]);
+            Up_e = mat*obj.Green_strain*obj.Volume;
+            ux = obj.u_x; uy = obj.u_y; uz = obj.u_z;
+            vx = obj.v_x; vy = obj.v_y; vz = obj.v_z;
+            wx = obj.w_x; wy = obj.w_y; wz = obj.w_z;
+            e_gammau = [ 1+ux,  0,  0,  0,   uz,   uy ]*a + ...
+                       [    0, uy,  0, uz,    0, 1+ux ]*b + ...
+                       [    0,  0, uz, uy, 1+ux,    0 ]*c;
+            e_gammav = [ vx,    0,  0,    0, vz, 1+vy ]*a + ...
+                       [  0, 1+vy,  0,   vz,  0,   vx ]*b + ...
+                       [  0,    0, vz, 1+vy, vx,    0 ]*c;
+            e_gammaw = [ wx,  0,    0,    0, 1+wz, wy ]*a + ...
+                       [  0, wy,    0, 1+wz,    0, wx ]*b + ...
+                       [  0,  0, 1+wz,   wy,   wx,  0 ]*c;
+            Up_gammau = e_gammau*Up_E;
+            Up_gammav = e_gammav*Up_E;
+            Up_gammaw = e_gammaw*Up_E;
+            fi = - [ Up_gammau(1); Up_gammav(1); Up_gammaw(1) ];
+            fj = - [ Up_gammau(2); Up_gammav(2); Up_gammaw(2) ];
+            fk = - [ Up_gammau(3); Up_gammav(3); Up_gammaw(3) ];
+            fl = - [ Up_gammau(4); Up_gammav(4); Up_gammaw(4) ];
+        end
