@@ -172,3 +172,20 @@ classdef Tetrahedron
             end
             grav_p = obj.Partial_Gravitational_Vector;
         end
+
+        function [fi, fj, fk, fl] = nodal_forces_Cauchy_strain(obj, ui, uj, uk, ul)
+            a = obj.vector_a;
+            b = obj.vector_b;
+            c = obj.vector_c;
+            obj = obj.calculate_Cauchy_strain (ui, uj, uk, ul);
+            mat = obj.lambda*[ones(3,3), zeros(3,3); zeros(3,3), zeros(3,3)] + ...
+                      obj.mu*diag([2, 2, 2, 1, 1, 1]);
+            Up_e = mat*obj.Cauchy_strain*obj.Volume;
+            Up_gammau = [ a, zeros(4,1), zeros(4,1), zeros(4,1), c, b ]*Up_e;
+            Up_gammav = [ zeros(4,1), b, zeros(4,1), c, zeros(4,1), a ]*Up_e;
+            Up_gammaw = [ zeros(4,1), zeros(4,1), c, b, a, zeros(4,1) ]*Up_e;
+            fi = - [ Up_gammau(1); Up_gammav(1); Up_gammaw(1) ];
+            fj = - [ Up_gammau(2); Up_gammav(2); Up_gammaw(2) ];
+            fk = - [ Up_gammau(3); Up_gammav(3); Up_gammaw(3) ];
+            fl = - [ Up_gammau(4); Up_gammav(4); Up_gammaw(4) ];
+        end
