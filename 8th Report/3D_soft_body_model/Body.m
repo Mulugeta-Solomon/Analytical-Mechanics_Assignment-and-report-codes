@@ -170,3 +170,15 @@ classdef Body
             end
             %
         end
+
+        function obj = calculate_gravitational_vector(obj, g)
+            obj.Gravitational_Vector = zeros(3*obj.numNodalPoints, 1);
+            for p=1:obj.numTetrahedra
+                tetra = obj.Tetrahedra(p);
+                vs = tetra.Vertices;
+                i = vs(1); j = vs(2); k = vs(3); l = vs(4);
+                [obj.Tetrahedra(p), grav_p] = tetra.partial_gravitational_vector(g);
+                loc = [ 3*i-2, 3*i-1, 3*i, 3*j-2, 3*j-1, 3*j, 3*k-2, 3*k-1, 3*k, 3*l-2, 3*l-1, 3*l ];
+                obj.Gravitational_Vector(loc) = obj.Gravitational_Vector(loc) + grav_p;
+            end
+        end
