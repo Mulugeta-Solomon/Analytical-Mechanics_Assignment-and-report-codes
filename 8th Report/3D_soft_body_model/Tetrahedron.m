@@ -218,3 +218,15 @@ classdef Tetrahedron
             fk = - [ Up_gammau(3); Up_gammav(3); Up_gammaw(3) ];
             fl = - [ Up_gammau(4); Up_gammav(4); Up_gammaw(4) ];
         end
+
+        function volume = volume_under_deformation(obj, position)
+            vs = obj.Vertices;
+            pi = position(:,vs(1));
+            pj = position(:,vs(2));
+            pk = position(:,vs(3));
+            pl = position(:,vs(4));
+            volume = (1/6)*det([ pj-pi, pk-pi, pl-pi ]);
+        end
+    end
+end
+
