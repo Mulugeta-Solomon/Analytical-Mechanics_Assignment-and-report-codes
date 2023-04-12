@@ -61,3 +61,18 @@ classdef Tetrahedron
             obj.Density = rho;
             obj.lambda = l; obj.mu = m;
         end
+
+        function obj = partial_derivaties(obj, ui, uj, uk, ul)
+            gamma_u =  [ ui(1); uj(1); uk(1); ul(1) ];
+            gamma_v =  [ ui(2); uj(2); uk(2); ul(2) ];
+            gamma_w =  [ ui(3); uj(3); uk(3); ul(3) ];
+            obj.u_x = obj.vector_a' * gamma_u;
+            obj.u_y = obj.vector_b' * gamma_u;
+            obj.u_z = obj.vector_c' * gamma_u;
+            obj.v_x = obj.vector_a' * gamma_v;
+            obj.v_y = obj.vector_b' * gamma_v;
+            obj.v_z = obj.vector_c' * gamma_v;
+            obj.w_x = obj.vector_a' * gamma_w;
+            obj.w_y = obj.vector_b' * gamma_w;
+            obj.w_z = obj.vector_c' * gamma_w;
+        end
