@@ -112,3 +112,19 @@ classdef Body
                energy = energy + tetra.partial_gravitational_potential_energy(disps, grav);
             end
         end
+
+        function output = draw( obj, disps, color )
+            arguments
+                obj;
+                disps = zeros(3, obj.numNodalPoints);
+                color = [0.9, 0.9, 0.9];
+            end
+            
+            points = zeros(3, obj.numNodalPoints);
+            np = obj.NodalPoints;
+            for p=1:obj.numNodalPoints
+                points(:,p) = np(p).Coordinates + disps(:,p);
+            end
+            
+            h = patch('Faces', obj.BoundaryFaces, 'Vertices', points', 'FaceColor', color);
+        end
