@@ -61,4 +61,23 @@ classdef Body_ThreeElementModel < Body
                 pe(p) = ps(p) -1 + 2*count(p);
             end
         end
+
+        function forces = nodal_forces(obj, flambda_all, fmu_all, nsubregions, ps, pe)
+            forces = zeros(2*obj.numNodalPoints, 1);
+            for p=1:nsubregions
+                flambda = flambda_all(ps(p):pe(p));
+                fmu     = fmu_all    (ps(p):pe(p));
+                f = - obj.SubRegions(p).Partial_J_lambda * flambda - obj.SubRegions(p).Partial_J_mu * fmu;
+                for k = 1:obj.SubRegions(p).numNodalPoints
+                    kp = obj.SubRegions(p).Index_NodalPoints(k);
+                    loc = [ 2*k-1, 2*k ];
+                    locp = [ 2*kp-1, 2*kp ];
+                    forces(locp) = forces(locp) + f(loc);
+                end
+            end
+        end
+        
+    end
+end
+
         
