@@ -96,3 +96,11 @@ classdef Body
                energy = energy + tetra.partial_strain_potential_energy(disps);
             end
         end
+
+        function energy = total_strain_potential_energy_Green_strain(obj, disps)
+            energy = 0;
+            for p=1:obj.numTetrahedra
+               tetra = obj.Tetrahedra(p);
+               energy = energy + tetra.partial_strain_potential_energy_Green_strain(disps);
+            end
+        end
