@@ -182,3 +182,13 @@ classdef Body
                 obj.Gravitational_Vector(loc) = obj.Gravitational_Vector(loc) + grav_p;
             end
         end
+
+        function A = constraint_matrix(obj, index)
+            index = index(index <= obj.numNodalPoints);
+            A = zeros(3*obj.numNodalPoints, 3*length(index));
+            for k=1:length(index)
+                A(3*index(k)-2, 3*k-2) = 1;
+                A(3*index(k)-1, 3*k-1) = 1;
+                A(3*index(k),   3*k)   = 1;
+            end
+        end
