@@ -229,3 +229,14 @@ classdef Body
         function forces = nodal_forces_Green_strain(obj, disps)
             nodal_forces_Green_strain_original(obj, disps);
         end
+
+        function position = positional_vectors(obj, disps)
+            arguments
+                obj;
+                disps = zeros(3,obj.numNodalPoints);
+            end
+            position = [];
+            for i=1:obj.numNodalPoints
+                position = [ position, obj.NodalPoints(i).Coordinates + disps(:,i) ];
+            end
+        end
