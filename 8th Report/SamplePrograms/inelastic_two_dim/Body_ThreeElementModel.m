@@ -36,3 +36,17 @@ classdef Body_ThreeElementModel < Body
             obj.SubRegions(obj.numSubRegions).suffixes_for_nodal_points = ...
                 reshape( [ 2*index_npoints-1, 2*index_npoints ]', [ 2*length(index_npoints), 1 ] );
         end
+
+        function obj = subregion_mechanical_parameters(obj, rho, l, m, lv1, mv1, lv2, mv2, k)
+            arguments
+                obj; rho; l; m, lv1, mv1, lv2, mv2;
+                k = obj.numSubRegions;
+            end
+            obj = obj.subregion_mechanical_parameters@Body(rho, l, m, k);
+            obj.SubRegions(k).lambda_vis_1 = lv1; obj.SubRegions(k).mu_vis_1 = mv1;
+            obj.SubRegions(k).lambda_vis_2 = lv2; obj.SubRegions(k).mu_vis_2 = mv2;
+            for p = obj.SubRegions(k).Index_Triangles
+                obj.Triangles(p) = obj.Triangles(p).mechanical_parameters(rho, l, m, lv1, mv1, lv2, mv2);
+            end
+        end
+        
