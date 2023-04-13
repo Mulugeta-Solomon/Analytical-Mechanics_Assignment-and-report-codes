@@ -20,3 +20,7 @@ Young = 10.0*1e+6; c1 = 0.4*1e+3; c2 = 20*1e+6; nu = 0.48; density = 1.00;
 
 %index_hard = [ 1:54, 109:162 ]; index_soft = [ 55:108 ]; % 3:3:3
 index_hard = [ 1:36, 127:162 ]; index_soft = [ 37:126 ]; % 2:4:2
+
+elastoplastic = elastoplastic.define_subregion(index_hard);
+elastoplastic = elastoplastic.subregion_mechanical_parameters(density, lambda_hard, mu_hard, lambda_vis_1, mu_vis_1, lambda_vis_2, mu_vis_2);
+elastoplastic = elastoplastic.subregion_color( [0.85 0.85 0.85] );
