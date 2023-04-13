@@ -29,3 +29,6 @@ elastoplastic = elastoplastic.subregion_color( [0.95 0.95 0.95] );
 
 elastoplastic = elastoplastic.calculate_stiffness_matrix;
 elastoplastic = elastoplastic.calculate_inertia_matrix;
+
+elastoplastic.draw_individual;
+drawnow;
