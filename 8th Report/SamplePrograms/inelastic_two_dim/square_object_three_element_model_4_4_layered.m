@@ -121,3 +121,32 @@ v = VideoWriter('square_object_three_element_model_4_4_layered', 'MPEG-4');
 open(v);
 writeVideo(v, M);
 close(v);
+
+function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
+    disp(t);
+    
+    persistent npoints nsubregions M ps pe flambda_all_s flambda_all_e fmu_all_s fmu_all_e cl1 cl2 cl3 cm1 cm2 cm3;
+    if isempty(npoints)
+        npoints = body.numNodalPoints;
+        nsubregions = body.numSubRegions;
+        M = body.Inertia_Matrix;
+        [ ps, pe ] = body.flambda_fmu_location_corresponding_to_subregions;
+        flambda_all_s = 4*npoints+1;
+        flambda_all_e = flambda_all_s -1 + pe(nsubregions);
+        fmu_all_s = flambda_all_e + 1;
+        fmu_all_e = fmu_all_s -1 + pe(nsubregions);
+        cl1 = zeros(nsubregions, 1); cl2 = zeros(nsubregions, 1); cl3 = zeros(nsubregions, 1);
+        cm1 = zeros(nsubregions, 1); cm2 = zeros(nsubregions, 1); cm3 = zeros(nsubregions, 1);
+        for p=1:nsubregions
+            sub = body.SubRegions(p);
+            lambda = sub.lambda; mu = sub.mu;
+            lambdav1 = sub.lambda_vis_1; muv1 = sub.mu_vis_1;
+            lambdav2 = sub.lambda_vis_2; muv2 = sub.mu_vis_2;
+            cl1(p) = lambda/(lambdav1+lambdav2);
+            cl2(p) = lambda*lambdav2/(lambdav1+lambdav2);
+            cl3(p) = lambdav1*lambdav2/(lambdav1+lambdav2);
+            cm1(p) = mu/(muv1+muv2);
+            cm2(p) = mu*muv2/(muv1+muv2);
+            cm3(p) = muv1*muv2/(muv1+muv2);
+        end
+    end
