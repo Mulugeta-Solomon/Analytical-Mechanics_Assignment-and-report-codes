@@ -31,3 +31,18 @@ elastoplastic = elastoplastic.subregion_color( [0.95 0.95 0.95] );
 
 elastoplastic = elastoplastic.calculate_stiffness_matrix;
 elastoplastic = elastoplastic.calculate_inertia_matrix;
+
+clf;
+elastoplastic.draw_individual;
+drawnow;
+
+nf = elastoplastic.SubRegions(1).numNodalPoints + elastoplastic.SubRegions(2).numNodalPoints;
+
+tp = 1.0; vpush = 0.8*(height/3)/tp;
+th = 1.0;
+tf = 5.0;
+
+alpha = 1e+6;
+
+index_floor = 1:10;
+index_push = 94:97;
