@@ -22,3 +22,7 @@ Young = 10.0*1e+6; c1 = 0.4*1e+3; c2 = 20*1e+6; nu = 0.48; density = 1.00;
 elastoplastic = elastoplastic.define_subregion([ 1:6, 13:18 ]);
 elastoplastic = elastoplastic.subregion_mechanical_parameters(density, lambda_hard, mu_hard, lambda_vis_1, mu_vis_1, lambda_vis_2, mu_vis_2);
 elastoplastic = elastoplastic.subregion_color( [0.85 0.85 0.85] );
+
+elastoplastic = elastoplastic.define_subregion([ 7:12 ]);
+elastoplastic = elastoplastic.subregion_mechanical_parameters(density, lambda_soft, mu_soft, lambda_vis_1, mu_vis_1, lambda_vis_2, mu_vis_2);
+elastoplastic = elastoplastic.subregion_color( [0.95 0.95 0.95] );
