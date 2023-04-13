@@ -60,3 +60,13 @@ qinit = q_push(end,:);
 square_object_hold = @(t,q) square_object_constraint_param(t,q, elastoplastic, A,b0,b1, alpha);
 [time_hold, q_hold] = ode15s(square_object_hold, interval, qinit);
 
+% releasing top region
+% �㕔�����
+A = elastoplastic.constraint_matrix([1,2,3,4]);
+b0 = zeros(2*4,1);
+b1 = zeros(2*4,1);
+interval = [tp+th, tp+th+tf];
+qinit = q_hold(end,:);
+square_object_free = @(t,q) square_object_constraint_param(t,q, elastoplastic, A,b0,b1, alpha);
+[time_free, q_free] = ode15s(square_object_free, interval, qinit);
+
