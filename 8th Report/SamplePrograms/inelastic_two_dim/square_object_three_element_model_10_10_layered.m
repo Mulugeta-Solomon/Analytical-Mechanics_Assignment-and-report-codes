@@ -161,3 +161,12 @@ function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
             cm3(p) = muv1*muv2/(muv1+muv2);
         end
     end
+
+    un = q(1:2*npoints);
+    vn = q(2*npoints+1:4*npoints);
+    flambda_all = q(flambda_all_s:flambda_all_e);
+    fmu_all     = q(fmu_all_s:fmu_all_e);
+    
+    dotun = vn;
+
+    
