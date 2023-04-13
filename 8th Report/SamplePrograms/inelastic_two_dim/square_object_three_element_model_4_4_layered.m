@@ -26,3 +26,6 @@ elastoplastic = elastoplastic.subregion_color( [0.85 0.85 0.85] );
 elastoplastic = elastoplastic.define_subregion([ 7:12 ]);
 elastoplastic = elastoplastic.subregion_mechanical_parameters(density, lambda_soft, mu_soft, lambda_vis_1, mu_vis_1, lambda_vis_2, mu_vis_2);
 elastoplastic = elastoplastic.subregion_color( [0.95 0.95 0.95] );
+
+elastoplastic = elastoplastic.calculate_stiffness_matrix;
+elastoplastic = elastoplastic.calculate_inertia_matrix;
