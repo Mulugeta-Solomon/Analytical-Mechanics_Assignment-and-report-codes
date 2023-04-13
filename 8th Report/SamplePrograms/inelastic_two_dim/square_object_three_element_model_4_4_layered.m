@@ -157,3 +157,23 @@ function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
     fmu_all     = q(fmu_all_s:fmu_all_e);
     
     dotun = vn;
+
+    f = body.nodal_forces(flambda_all, fmu_all, nsubregions, ps, pe);
+    
+    coef = [ M, -A; -A', zeros(size(A,2),size(A,2))];
+    vec = [ f; 2*alpha*(A'*vn-b1)+(alpha^2)*(A'*un-(b0+b1*t)) ];
+    sol = coef\vec;
+    dotvn = sol(1:2*npoints);
+    
+    dotflambda_all = zeros(pe(nsubregions),1);
+    dotfmu_all     = zeros(pe(nsubregions),1);
+    
+    for p=1:nsubregions
+        vp = vn(body.SubRegions(p).suffixes_for_nodal_points);
+        dotvp = dotvn(body.SubRegions(p).suffixes_for_nodal_points);
+        dotflambda_all(ps(p):pe(p)) = -cl1(p)*flambda_all(ps(p):pe(p)) + cl2(p)*vp + cl3(p)*dotvp;
+        dotfmu_all    (ps(p):pe(p)) = -cm1(p)*fmu_all    (ps(p):pe(p)) + cm2(p)*vp + cm3(p)*dotvp;
+    end
+    
+    dotq = [dotun; dotvn; dotflambda_all; dotfmu_all];
+end
