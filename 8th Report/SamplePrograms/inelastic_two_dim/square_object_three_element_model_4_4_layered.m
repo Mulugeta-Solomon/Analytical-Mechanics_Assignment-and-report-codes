@@ -117,3 +117,7 @@ for t = 0:0.01:tp+th+tf
 end
 M(fr) = getframe(gcf);
 
+v = VideoWriter('square_object_three_element_model_4_4_layered', 'MPEG-4');
+open(v);
+writeVideo(v, M);
+close(v);
