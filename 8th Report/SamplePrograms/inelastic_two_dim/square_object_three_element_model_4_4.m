@@ -123,3 +123,26 @@ function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
         Jlambda = body.J_lambda;
         Jmu     = body.J_mu;
     end
+
+    un = q(1:2*npoints);
+    vn = q(2*npoints+1:4*npoints);
+    flambda = q(4*npoints+1:6*npoints);
+    fmu     = q(6*npoints+1:8*npoints);
+    
+    dotun = vn;
+    
+    coef = [ M, -A; -A', zeros(size(A,2),size(A,2))];
+    vec = [ -flambda-fmu; 2*alpha*(A'*vn-b1)+(alpha^2)*(A'*un-(b0+b1*t)) ];
+    sol = coef\vec;
+    dotvn = sol(1:2*npoints);
+    
+    dotflambda = (-lambda/(lambdav1+lambdav2))*flambda ...
+        + (lambda*lambdav2/(lambdav1+lambdav2))*Jlambda*vn ...
+        + (lambdav1*lambdav2/(lambdav1+lambdav2))*Jlambda*dotvn;
+    
+    dotfmu = (-mu/(muv1+muv2))*fmu ...
+        + (mu*muv2/(muv1+muv2))*Jmu*vn ...
+        + (muv1*muv2/(muv1+muv2))*Jmu*dotvn;
+    
+    dotq = [dotun; dotvn; dotflambda; dotfmu];
+end
