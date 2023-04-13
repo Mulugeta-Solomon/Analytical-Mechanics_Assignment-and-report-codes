@@ -46,3 +46,17 @@ alpha = 1e+6;
 
 index_floor = 1:10;
 index_push = 94:97;
+
+% pushing top region
+% �㕔�������Ă���
+A = elastoplastic.constraint_matrix([index_floor, index_push]);
+b0 = zeros(2*(10+4),1);
+b1 = [ zeros(2*10,1); 0; -vpush; 0; -vpush; 0; -vpush; 0; -vpush ];
+interval = [0, tp];
+qinit = zeros(4*npoints+4*nf,1);
+square_object_push = @(t,q) square_object_constraint_param(t,q, elastoplastic, A,b0,b1, alpha);
+[time_push, q_push] = ode15s(square_object_push, interval, qinit);
+
+disps = reshape(q_push(end,1:2*npoints), [2,npoints]);
+elastoplastic.draw_individual(disps);
+drawnow;
