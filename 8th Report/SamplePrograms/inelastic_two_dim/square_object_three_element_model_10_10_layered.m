@@ -60,3 +60,12 @@ square_object_push = @(t,q) square_object_constraint_param(t,q, elastoplastic, A
 disps = reshape(q_push(end,1:2*npoints), [2,npoints]);
 elastoplastic.draw_individual(disps);
 drawnow;
+
+% holding top region
+% �㕔��ێ����Ă���
+b0 = [ zeros(2*10,1); 0; -vpush*tp; 0; -vpush*tp; 0; -vpush*tp; 0; -vpush*tp ];
+b1 = zeros(2*(10+4),1);
+interval = [tp, tp+th];
+qinit = q_push(end,:);
+square_object_hold = @(t,q) square_object_constraint_param(t,q, elastoplastic, A,b0,b1, alpha);
+[time_hold, q_hold] = ode15s(square_object_hold, interval, qinit);
