@@ -147,3 +147,10 @@ classdef Tetrahedron
             B_p = obj.Partial_Damping_Matrix;
         end
 
+        function obj = calculate_partial_inertia_matrix(obj)
+            mass = obj.Density * obj.Volume;
+            I = eye(3);
+            obj.Partial_Inertia_Matrix = (mass/20) * ...
+                [2*I, I, I, I; I, 2*I, I, I; I, I, 2*I, I; I, I, I, 2*I];
+        end
+
