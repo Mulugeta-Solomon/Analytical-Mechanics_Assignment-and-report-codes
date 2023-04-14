@@ -76,3 +76,12 @@ classdef Tetrahedron
             obj.w_y = obj.vector_b' * gamma_w;
             obj.w_z = obj.vector_c' * gamma_w;
         end
+
+        function obj = calculate_Cauchy_strain(obj, ui, uj, uk, ul)
+            obj = obj.partial_derivaties (ui, uj, uk, ul);
+            obj.Cauchy_strain = [
+                obj.u_x; obj.v_y;  obj.w_z;
+                obj.v_z + obj.w_y;
+                obj.w_x + obj.u_z;
+                obj.u_y + obj.v_x ];
+        end
