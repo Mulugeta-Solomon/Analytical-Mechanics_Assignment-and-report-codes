@@ -116,3 +116,10 @@ classdef Tetrahedron
                   obj.mu * ( 2*obj.Green_strain(1)^2 + 2*obj.Green_strain(2)^2 + 2*obj.Green_strain(3)^2 + ...
                                obj.Green_strain(4)^2 +   obj.Green_strain(5)^2 +   obj.Green_strain(6)^2 ) );
         end
+
+        function energy = partial_gravitational_potential_energy(obj, disps, grav)
+            vs = obj.Vertices;
+            ui = disps(:,vs(1)); uj = disps(:,vs(2)); uk = disps(:,vs(3)); ul = disps(:,vs(4));
+            energy = - (obj.Volume) * grav' *(ui+uj+uk+ul)/4;
+        end
+
