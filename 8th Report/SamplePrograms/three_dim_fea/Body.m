@@ -239,5 +239,20 @@ classdef Body
                 position = [ position, obj.NodalPoints(i).Coordinates + disps(:,i) ];
             end
         end
+        function volume = volume_under_deformation(obj, disps)
+            arguments
+                obj;
+                disps = zeros(3,obj.numNodalPoints);
+            end
+            position = obj.positional_vectors(disps);
+            volume = 0;
+            for i=1:obj.numTetrahedra
+                tetra = obj.Tetrahedra(i);
+                volume = volume + tetra.volume_under_deformation(position);
+            end
+        end
+    end
+end
+
         
         
