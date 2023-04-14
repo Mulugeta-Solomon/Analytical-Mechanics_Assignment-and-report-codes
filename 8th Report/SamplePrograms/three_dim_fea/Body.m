@@ -211,4 +211,19 @@ classdef Body
             un = reshape(disps, [3*obj.numNodalPoints, 1]);
             forces = - obj.Stiffness_Matrix*un;
         end
+
+        function forces = nodal_forces_Green_strain_original(obj, disps)
+            forces = zeros(3*obj.numNodalPoints,1);
+            for p=1:obj.numTetrahedra
+                tetra = obj.Tetrahedra(p);
+                vs = tetra.Vertices;
+                i = vs(1); j = vs(2); k = vs(3); l = vs(4);
+                [fi, fj, fk, fl] = tetra.nodal_forces_Green_strain(disps(:,i), disps(:,j), disps(:,k), disps(:,l));
+                forces(3*i-2:3*i) = forces(3*i-2:3*i) + fi;
+                forces(3*j-2:3*j) = forces(3*j-2:3*j) + fj;
+                forces(3*k-2:3*k) = forces(3*k-2:3*k) + fk;
+                forces(3*l-2:3*l) = forces(3*l-2:3*l) + fl;
+            end
+        end
+        
         
