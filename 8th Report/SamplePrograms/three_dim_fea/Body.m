@@ -88,3 +88,11 @@ classdef Body
                 obj.Tetrahedra(p).mu_vis      = mv;
             end
         end
+
+        function energy = total_strain_potential_energy(obj, disps)
+            energy = 0;
+            for p=1:obj.numTetrahedra
+               tetra = obj.Tetrahedra(p);
+               energy = energy + tetra.partial_strain_potential_energy(disps);
+            end
+        end
