@@ -68,3 +68,14 @@ classdef Body
             end
             obj.Surfaces = sf;
         end
+
+        function obj = mechanical_parameters(obj, rho, l, m)
+            obj.Density = rho;
+            obj.lambda = l;
+            obj.mu     = m;
+            for p=1:obj.numTetrahedra
+                obj.Tetrahedra(p).Density = rho;
+                obj.Tetrahedra(p).lambda  = l;
+                obj.Tetrahedra(p).mu      = m;
+            end
+        end
