@@ -104,3 +104,11 @@ classdef Body
                energy = energy + tetra.partial_strain_potential_energy_Green_strain(disps);
             end
         end
+
+        function energy = total_gravitational_potential_energy(obj, disps, grav)
+            energy = 0;
+            for p=1:obj.numTetrahedra
+               tetra = obj.Tetrahedra(p);
+               energy = energy + tetra.partial_gravitational_potential_energy(disps, grav);
+            end
+        end
