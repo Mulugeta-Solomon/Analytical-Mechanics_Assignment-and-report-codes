@@ -206,4 +206,9 @@ classdef Body
                 forces(3*l-2:3*l) = forces(3*l-2:3*l) + fl;
             end
         end
+
+        function forces = nodal_forces_Cauchy_strain(obj, disps)
+            un = reshape(disps, [3*obj.numNodalPoints, 1]);
+            forces = - obj.Stiffness_Matrix*un;
+        end
         
