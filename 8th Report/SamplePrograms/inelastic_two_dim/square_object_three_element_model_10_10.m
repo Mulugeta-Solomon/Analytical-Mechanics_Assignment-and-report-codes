@@ -106,3 +106,10 @@ for t = 0:0.01:tp+th+tf
     fr = fr + 1;
     disp(t);
 end
+
+M(fr) = getframe(gcf);
+
+v = VideoWriter('square_object_three_element_model_10_10', 'MPEG-4');
+open(v);
+writeVideo(v, M);
+close(v);
