@@ -128,3 +128,10 @@ classdef Tetrahedron
                 obj.lambda * obj.Partial_J_lambda + obj.mu * obj.Partial_J_mu;
         end
 
+        function [obj, K_p] = partial_stiffness_matrix(obj)
+            if isempty( obj.Partial_Stiffness_Matrix )
+                obj = obj.calculate_partial_stiffness_matrix;
+            end
+            K_p = obj.Partial_Stiffness_Matrix;
+        end
+
