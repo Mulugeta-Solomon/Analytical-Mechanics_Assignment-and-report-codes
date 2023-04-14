@@ -106,3 +106,13 @@ classdef Tetrahedron
                 obj.w_x + obj.u_z + (obj.u_z*obj.u_x + obj.v_z*obj.v_x + obj.w_z*obj.w_x); ...
                 obj.u_y + obj.v_x + (obj.u_x*obj.u_y + obj.v_x*obj.v_y + obj.w_x*obj.w_y) ];
         end
+
+        function energy = partial_strain_potential_energy_Green_strain(obj, disps)
+            vs = obj.Vertices;
+            ui = disps(:,vs(1)); uj = disps(:,vs(2)); uk = disps(:,vs(3)); ul = disps(:,vs(4));
+            obj = obj.calculate_Green_strain(ui, uj, uk, ul);
+            energy = (1/2) * (obj.Volume) * ...
+                ( obj.lambda * ( obj.Green_strain(1) + obj.Green_strain(2) + obj.Green_strain(3) )^2 + ...
+                  obj.mu * ( 2*obj.Green_strain(1)^2 + 2*obj.Green_strain(2)^2 + 2*obj.Green_strain(3)^2 + ...
+                               obj.Green_strain(4)^2 +   obj.Green_strain(5)^2 +   obj.Green_strain(6)^2 ) );
+        end
