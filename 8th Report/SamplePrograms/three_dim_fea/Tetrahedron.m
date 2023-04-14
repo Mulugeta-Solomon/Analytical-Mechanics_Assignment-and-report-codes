@@ -85,3 +85,13 @@ classdef Tetrahedron
                 obj.w_x + obj.u_z;
                 obj.u_y + obj.v_x ];
         end
+
+        function energy = partial_strain_potential_energy(obj, disps)
+            vs = obj.Vertices;
+            ui = disps(:,vs(1)); uj = disps(:,vs(2)); uk = disps(:,vs(3)); ul = disps(:,vs(4));
+            obj = obj.calculate_Cauchy_strain(ui, uj, uk, ul);
+            energy = (1/2) * (obj.Volume) * ...
+                ( obj.lambda * ( obj.Cauchy_strain(1) + obj.Cauchy_strain(2) + obj.Cauchy_strain(3) )^2 + ...
+                  obj.mu * ( 2*obj.Cauchy_strain(1)^2 + 2*obj.Cauchy_strain(2)^2 + 2*obj.Cauchy_strain(3)^2 + ...
+                               obj.Cauchy_strain(4)^2 +   obj.Cauchy_strain(5)^2 +   obj.Cauchy_strain(6)^2 ) );
+        end
