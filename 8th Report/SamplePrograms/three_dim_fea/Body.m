@@ -41,3 +41,19 @@ classdef Body
                 obj.J_lambda(loc,loc) = obj.J_lambda(loc,loc) + tetra.Partial_J_lambda;
                 obj.J_mu(loc,loc)     = obj.J_mu(loc,loc)     + tetra.Partial_J_mu;
             end
+
+            faces = [];
+            for p=1:obj.numTetrahedra
+                tetra = obj.Tetrahedra(p);
+                faces = [ faces; tetra.Faces ];
+            end
+            faces_sorted = sort(faces, 2);
+            n = size(faces_sorted, 1);
+            onlyone = 1:n;
+            for p=1:n-1
+                [lia, loc] = ismember(faces_sorted(p,:), faces_sorted(p+1:n,:), 'rows');
+                if lia
+                    onlyone(p) = 0;
+                    onlyone(p+loc) = 0;
+                end
+            end
