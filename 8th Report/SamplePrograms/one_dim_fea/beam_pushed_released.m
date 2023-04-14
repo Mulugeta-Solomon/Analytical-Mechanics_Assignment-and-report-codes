@@ -1,64 +1,64 @@
-% dynamic deformation of a beam (constant cross-sectional areaj
+% dynamic deformation of a beam (constant cross-sectional areaï¿½j
 % time [ 0, tpush ] : bottom end fixed. force fpush pushes top end
 % time [ tpush, tend ] : release bottom end. no force to top.
 %                        bottom contacting to floor causes reaction force
 %                        floor reaction force is described by penatly method
 % g, cm, msec
 
-% ƒr[ƒ€‚Ì“®“I•ÏŒ`i’f–ÊÏˆê’èj
-% ŠÔ [ 0, tpush ] : ‰º’[ŒÅ’è@ã’[‚Í—Í fpush ‚Å‰Ÿ‚·
-% ŠÔ [ tpush, tend ] : ‰º’[‚Ì§–ñ‚ğŠO‚·Dã’[‚Ì—Í‚ğ‚È‚­‚·D
-%                        ‰º’[‚ª°‚ÉÚG‚µ‚Ä‚¢‚é‚Æ‚«‚ÍC°‚©‚ç”½—Í‚ğó‚¯‚é
-%                        °”½—Í‚Íƒyƒiƒ‹ƒeƒB–@‚Å•\‚·
+% ï¿½rï¿½[ï¿½ï¿½ï¿½Ì“ï¿½ï¿½Iï¿½ÏŒ`ï¿½iï¿½fï¿½ÊÏˆï¿½ï¿½j
+% ï¿½ï¿½ï¿½ï¿½ [ 0, tpush ] : ï¿½ï¿½ï¿½[ï¿½Å’ï¿½@ï¿½ï¿½[ï¿½Í—ï¿½ fpush ï¿½Å‰ï¿½ï¿½ï¿½
+% ï¿½ï¿½ï¿½ï¿½ [ tpush, tend ] : ï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½Dï¿½ï¿½[ï¿½Ì—Í‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½D
+%                        ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ÉÚGï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÍCï¿½ï¿½ï¿½ï¿½ï¿½ç”½ï¿½Í‚ï¿½ï¿½ó‚¯‚ï¿½
+%                        ï¿½ï¿½ï¿½ï¿½ï¿½Í‚Íƒyï¿½iï¿½ï¿½ï¿½eï¿½Bï¿½@ï¿½Å•\ï¿½ï¿½
 % g, cm, sec
 
 L = 10; A = 2;  % beam length and cross-sectional area (constant)
-                % ƒr[ƒ€‚Ì’·‚³‚Æ’f–ÊÏiˆê’èj
-n = 6;          % number of nodal points	% ß“_‚ÌŒÂ”
+                % ï¿½rï¿½[ï¿½ï¿½ï¿½Ì’ï¿½ï¿½ï¿½ï¿½Æ’fï¿½ÊÏiï¿½ï¿½ï¿½j
+n = 6;          % number of nodal points	% ï¿½ß“_ï¿½ÌŒÂï¿½
 h = L/(n-1);
 
 % E = 50 kPa; c = 0.2 kPa s; rho = 1 g/cm^2
-E = 0.5*1e+6;   % elastic modulus (Young's modulus)	% ’e«—¦iƒ„ƒ“ƒO—¦j
-c = 2.0*1e+3;   % viscous modulus			% ”S«—¦
-rho = 1;        % density                   % –§“x
-alpha = 2000;   % positive constant for CSM	% §–ñˆÀ’è‰»–@‚Ì’è”
+E = 0.5*1e+6;   % elastic modulus (Young's modulus)	% ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½j
+c = 2.0*1e+3;   % viscous modulus			% ï¿½Sï¿½ï¿½ï¿½ï¿½
+rho = 1;        % density                   % ï¿½ï¿½ï¿½x
+alpha = 2000;   % positive constant for CSM	% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è‰»ï¿½@ï¿½Ì’è”
 
 % fpush = 2 N; kfloor = 0.1 MPa/cm
-fpush = 2.0e+5;     % pushing force			% ‰Ÿ‚µ‚İ—Í
-kfloor = 1.0*1e+6;  % floor elasticity		% °‚Ì’e«
+fpush = 2.0e+5;     % pushing force			% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ—ï¿½
+kfloor = 1.0*1e+6;  % floor elasticity		% ï¿½ï¿½ï¿½Ì’eï¿½ï¿½
 tpush = 0.2; tend = 0.4;
 
 e0 = (4/6)*ones(n,1); e0(1) = (2/6); e0(n) = (2/6);
 e1 = (1/6)*ones(n,1);
-M = (rho*A*h)*spdiags([e1 e0 e1], -1:1, n, n);  % inertia matrix   % Šµ«s—ñ
+M = (rho*A*h)*spdiags([e1 e0 e1], -1:1, n, n);  % inertia matrix   % ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
 
 e0 = 2*ones(n,1); e0(1) = 1; e0(n) = 1;
 e1 = (-1)*ones(n,1);
-K = (E*A/h)*spdiags([e1 e0 e1], -1:1, n, n);    % stiffness matrix % „«s—ñ
-B = (c*A/h)*spdiags([e1 e0 e1], -1:1, n, n);    % damping matrix   % ”S«s—ñ
+K = (E*A/h)*spdiags([e1 e0 e1], -1:1, n, n);    % stiffness matrix % ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
+B = (c*A/h)*spdiags([e1 e0 e1], -1:1, n, n);    % damping matrix   % ï¿½Sï¿½ï¿½ï¿½sï¿½ï¿½
 
 % time interval [0,tpush]
-% ŠÔ‹æŠÔ [0,tpush]
+% ï¿½ï¿½ï¿½Ô‹ï¿½ï¿½ [0,tpush]
 constraints = zeros(n,1);
-constraints(1) = 1;  % constraint matrix (bottom fixed) % §–ñs—ñi‰º’[ŒÅ’èj
-p = n;               % force application point (top)    % —Í‚Ìì—p“_iã’[j
-external_force = @(t,n,un,vn) pushing_force_param (t, n,un,vn, p,fpush,tpush); % external force % ŠO—Í
+constraints(1) = 1;  % constraint matrix (bottom fixed) % ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½iï¿½ï¿½ï¿½[ï¿½Å’ï¿½j
+p = n;               % force application point (top)    % ï¿½Í‚Ìï¿½pï¿½_ï¿½iï¿½ï¿½[ï¿½j
+external_force = @(t,n,un,vn) pushing_force_param (t, n,un,vn, p,fpush,tpush); % external force % ï¿½Oï¿½ï¿½
 beam_dynamic_equation = @(t,q) beam_supported_dynamic_equation_param (t,q, n, M,B,K, constraints, alpha, external_force);
 interval = [0,tpush];
 qinit = [ zeros(n,1); zeros(n,1) ];
 [timepush,qpush] = ode45(beam_dynamic_equation, interval, qinit);
 
 % time interval [tpush,tend]
-% ŠÔ‹æŠÔ [tpush,tend]
-p = 1;               % force application point (bottom)  % —Í‚Ìì—p“_i‰º’[j
-external_force = @(t,n,un,vn) floor_force_param(t,n,un,vn, p,A,kfloor); % floor reaction force to bottom % ‰º’[‚Ì°”½—Í
+% ï¿½ï¿½ï¿½Ô‹ï¿½ï¿½ [tpush,tend]
+p = 1;               % force application point (bottom)  % ï¿½Í‚Ìï¿½pï¿½_ï¿½iï¿½ï¿½ï¿½[ï¿½j
+external_force = @(t,n,un,vn) floor_force_param(t,n,un,vn, p,A,kfloor); % floor reaction force to bottom % ï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 beam_dynamic_equation = @(t,q) beam_free_dynamic_equation_param (t,q, n,M,B,K,external_force);
 interval = [tpush,tend];
 qinit = qpush(end, :);
 [timefree,qfree] = ode45(beam_dynamic_equation, interval, qinit);
 
 % whole time interval
-% ‘SŠÔ‹æŠÔ
+% ï¿½Sï¿½ï¿½ï¿½Ô‹ï¿½ï¿½
 time = [ timepush; timefree ];
 q = [ qpush; qfree ];
 
@@ -78,7 +78,7 @@ xlim([0,tend]);
 ylim([-2,28]);
 grid on;
 saveas(gcf,'beam_pushed_released_position.png');
-fprintf("nodal point position / ß“_‚ÌˆÊ’u\n");
+fprintf("nodal point position / ï¿½ß“_ï¿½ÌˆÊ’u\n");
 
 clf;
 hold on;
@@ -94,7 +94,7 @@ xlim([0,tend]);
 ylim([-2,28]);
 grid on;
 saveas(gcf,'beam_pushed_released_body.png');
-fprintf("deformation and motion of body / ƒ{ƒfƒB‚Ì•ÏŒ`‚Æ‰^“®\n");
+fprintf("deformation and motion of body / ï¿½{ï¿½fï¿½Bï¿½Ì•ÏŒ`ï¿½Æ‰^ï¿½ï¿½\n");
 
 %plot(time, q(:,n)-q(:,1)+L, time, L*ones(size(time,1),1),'--');
 %xlabel("time");
@@ -102,5 +102,5 @@ fprintf("deformation and motion of body / ƒ{ƒfƒB‚Ì•ÏŒ`‚Æ‰^“®\n");
 %ylim([6,12]);
 %grid on;
 %saveas(gcf,'beam_pushed_released_body_length.png');
-%fprintf("body length / ƒ{ƒfƒB‚Ì’·‚³\n");
+%fprintf("body length / ï¿½{ï¿½fï¿½Bï¿½Ì’ï¿½ï¿½ï¿½\n");
 
