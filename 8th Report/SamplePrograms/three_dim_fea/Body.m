@@ -57,3 +57,14 @@ classdef Body
                     onlyone(p+loc) = 0;
                 end
             end
+            onlyone = setdiff(onlyone, 0);
+            obj.BoundaryFaces = faces(onlyone, :);
+            
+            [ nsufs, surfs, order ] = triangles_to_surfaces (obj.BoundaryFaces);
+            obj.numSurfaces = nsufs;
+            for p=1:nsufs
+                [surf_p, area_p] = extract_surface(p, surfs, order, obj.BoundaryFaces, points );
+                sf(p) = Surface(size(surf_p,1), surf_p, area_p);
+            end
+            obj.Surfaces = sf;
+        end
