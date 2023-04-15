@@ -14,3 +14,10 @@ l = 16; m = 16; n = 2; membrane_size = 10; thickness = 0.5;
 % p = 2e+4 = 0.02e+6 --> 0.002 MPa = 2 KPa
 pressure = 40e+4;
 %pressure = 80e+4;
+
+[ points, tetrahedra ] = cuboidal_object( l, m, n, membrane_size, membrane_size, thickness );
+npoints = size(points,2);
+ntetrahedra = size(tetrahedra,1);
+elastic = Body(npoints, points, ntetrahedra, tetrahedra);
+elastic = elastic.mechanical_parameters(density, lambda, mu);
+elastic = elastic.calculate_stiffness_matrix;
