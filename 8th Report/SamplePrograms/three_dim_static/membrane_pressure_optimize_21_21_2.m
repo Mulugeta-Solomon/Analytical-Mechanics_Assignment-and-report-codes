@@ -61,3 +61,10 @@ disps = reshape(un_deformed, [3,npoints]);
 dt1 = datetime;
 dt01 = between(dt0, dt1);
 dt01
+
+Emin
+clf;
+draw_body( elastic, disps );
+saveas(gcf, 'membrane_pressure_optimize_21_21_2_deformed.png');
+
+save('membrane_pressure_optimize_21_21_2.mat');
