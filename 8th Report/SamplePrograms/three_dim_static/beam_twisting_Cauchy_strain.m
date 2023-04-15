@@ -62,3 +62,13 @@ function energy = internal_energy_params( un, npoints, elastic )
     disps = reshape(un, [3,npoints]);
     energy = elastic.total_strain_potential_energy(disps);
 end
+
+function draw_body (body, disps)
+    body.draw(disps);
+    xlim([-1,2]); xlabel('x');
+    ylim([-1,2]); ylabel('y');
+    zlim([-1,5]); zlabel('z'); zticks(-1:5);
+    pbaspect([1 1 2]);
+    grid on;
+    view([-75, 30]);
+end
