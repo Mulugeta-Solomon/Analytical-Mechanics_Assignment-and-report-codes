@@ -22,3 +22,6 @@ npoints = size(points,2);
 ntetrahedra = size(tetrahedra,1);
 elastic = Body(npoints, points, ntetrahedra, tetrahedra);
 elastic = elastic.mechanical_parameters(density, lambda, mu);
+
+disps_natural = zeros(3,npoints);
+un_natural = reshape(disps_natural, [3*npoints,1]);
