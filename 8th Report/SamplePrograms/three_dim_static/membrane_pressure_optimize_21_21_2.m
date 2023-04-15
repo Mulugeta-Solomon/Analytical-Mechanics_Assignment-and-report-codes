@@ -80,3 +80,16 @@ function energy = internal_energy_params( sol, npoints, elastic, pressure, faces
     
     energy = energy - fn'*un;
 end
+
+function [ cineq, ceq ] = nonlcon_params( sol, npoints, elastic, pressure, faces, mat )
+    cineq = [];
+    
+    un = sol(1:3*npoints);
+    disps = reshape(un, [3,npoints]);
+    positions = elastic.positional_vectors(disps);
+    nodal_forces = nodal_forces_equivalent_to_pressure( pressure, faces, npoints, positions );
+    vec = zeros(size(sol));
+    vec(1:3*npoints) = nodal_forces;
+    
+    ceq = mat*sol - vec;
+end
