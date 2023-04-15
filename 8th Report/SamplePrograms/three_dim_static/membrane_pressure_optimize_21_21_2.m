@@ -68,3 +68,15 @@ draw_body( elastic, disps );
 saveas(gcf, 'membrane_pressure_optimize_21_21_2_deformed.png');
 
 save('membrane_pressure_optimize_21_21_2.mat');
+
+function energy = internal_energy_params( sol, npoints, elastic, pressure, faces )
+    un = sol(1:3*npoints);
+    disps = reshape(un, [3,npoints]);
+    energy = elastic.total_strain_potential_energy(disps);
+    
+    positions = elastic.positional_vectors(disps);
+    nodal_forces = nodal_forces_equivalent_to_pressure( pressure, faces, npoints, positions );
+    fn = reshape(nodal_forces, [3*npoints,1]);
+    
+    energy = energy - fn'*un;
+end
