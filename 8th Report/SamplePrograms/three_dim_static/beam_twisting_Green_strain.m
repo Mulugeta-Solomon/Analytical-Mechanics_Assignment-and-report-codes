@@ -15,3 +15,5 @@ rotation_angle = 20*2*pi/360;   % 20 degrees
 Young = 1.0*1e+6; nu = 0.48; density = 0.020;
 % 10.0 N --> fpush = 10.0*1e+5;
 %force = [0; -1.2*1e+5];
+
+[ lambda, mu ] = Lame_constants( Young, nu );
