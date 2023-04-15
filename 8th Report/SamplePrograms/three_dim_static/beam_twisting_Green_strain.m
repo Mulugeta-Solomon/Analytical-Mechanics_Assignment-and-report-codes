@@ -25,3 +25,5 @@ elastic = elastic.mechanical_parameters(density, lambda, mu);
 
 disps_natural = zeros(3,npoints);
 un_natural = reshape(disps_natural, [3*npoints,1]);
+
+internal_energy = @(un) internal_energy_params( un, npoints, elastic );
