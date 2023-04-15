@@ -41,3 +41,6 @@ k = p-3; A(3*k-2,13) = 1;  A(3*k-1,14) = 1; A(3*k,15) = 1; b(13:15) = disp_corne
 k = p-2; A(3*k-2,16) = 1;  A(3*k-1,17) = 1; A(3*k,18) = 1; b(16:18) = disp_corner(cube_size/sqrt(2), (-1/4)*pi);
 k = p-1; A(3*k-2,19) = 1;  A(3*k-1,20) = 1; A(3*k,21) = 1; b(19:21) = disp_corner(cube_size/sqrt(2), ( 3/4)*pi);
 k = p-0; A(3*k-2,22) = 1;  A(3*k-1,23) = 1; A(3*k,24) = 1; b(22:24) = disp_corner(cube_size/sqrt(2), ( 1/4)*pi);
+
+options = optimset('Display','iter', 'MaxFunEvals',3*10^5);
+[un_Green, Emin_Green] = fmincon(internal_energy, un_natural, [], [], A', b, [], [], [], options);
