@@ -49,3 +49,15 @@ for p=1:size(boundary_faces,1)
         bottom_faces = [ bottom_faces; boundary_faces(p,:) ];
     end
 end
+
+sol_init = [un_natural; zeros(numConstraints,1)];
+internal_energy = @(sol) internal_energy_params( sol, npoints, elastic, pressure, bottom_faces );
+nonlcon = @(sol) nonlcon_params( sol, npoints, elastic, pressure, bottom_faces, mat );
+options = optimset('Display','iter', 'MaxFunEvals',2*10^6, 'MaxIter', 5000);
+[sol, Emin] = fmincon(internal_energy, sol_init, [], [], [], [], [], [], nonlcon, options);
+un_deformed = sol(1:3*npoints);
+disps = reshape(un_deformed, [3,npoints]);
+
+dt1 = datetime;
+dt01 = between(dt0, dt1);
+dt01
