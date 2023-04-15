@@ -93,3 +93,13 @@ function [ cineq, ceq ] = nonlcon_params( sol, npoints, elastic, pressure, faces
     
     ceq = mat*sol - vec;
 end
+
+function draw_body (body, disps)
+    body.draw(disps);
+    xlim([-1,11]); xlabel('x'); xticks([0:2:10]);
+    ylim([-1,11]); ylabel('y'); yticks([0:2:10]);
+    zlim([-1,7]);  zlabel('z'); zticks([0:2:10]);
+    pbaspect([12 12 8]);
+    grid on;
+    view([-50, 30]);
+end
