@@ -53,3 +53,7 @@ set(0,'defaultTextFontSize',16);
 clf;
 draw_body(elastic, reshape(un_natural, [3,npoints]));
 saveas(gcf, 'beam_twisting_Cauchy_strain_natural.png');
+
+clf;
+draw_body(elastic, reshape(un_Cauchy, [3,npoints]));
+saveas(gcf, 'beam_twisting_Cauchy_strain_deformed.png');
