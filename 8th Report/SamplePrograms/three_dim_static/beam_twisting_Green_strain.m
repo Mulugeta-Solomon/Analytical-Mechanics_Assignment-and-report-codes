@@ -56,3 +56,8 @@ saveas(gcf, 'beam_twisting_Green_strain_natural.png');
 clf;
 draw_body(elastic, reshape(un_Green, [3,npoints]));
 saveas(gcf, 'beam_twisting_Green_strain_deformed.png');
+
+function energy = internal_energy_params( un, npoints, elastic )
+    disps = reshape(un, [3,npoints]);
+    energy = elastic.total_strain_potential_energy_Green_strain(disps);
+end
