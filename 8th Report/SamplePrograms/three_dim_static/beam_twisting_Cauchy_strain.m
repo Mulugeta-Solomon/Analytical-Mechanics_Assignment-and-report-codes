@@ -49,3 +49,7 @@ options = optimset('Display','iter', 'MaxFunEvals',3*10^5);
 figure('position', [0, 0, 400, 400]);
 set(0,'defaultAxesFontSize',16);
 set(0,'defaultTextFontSize',16);
+
+clf;
+draw_body(elastic, reshape(un_natural, [3,npoints]));
+saveas(gcf, 'beam_twisting_Cauchy_strain_natural.png');
