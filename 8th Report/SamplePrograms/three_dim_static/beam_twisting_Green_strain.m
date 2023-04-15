@@ -17,3 +17,8 @@ Young = 1.0*1e+6; nu = 0.48; density = 0.020;
 %force = [0; -1.2*1e+5];
 
 [ lambda, mu ] = Lame_constants( Young, nu );
+
+npoints = size(points,2);
+ntetrahedra = size(tetrahedra,1);
+elastic = Body(npoints, points, ntetrahedra, tetrahedra);
+elastic = elastic.mechanical_parameters(density, lambda, mu);
