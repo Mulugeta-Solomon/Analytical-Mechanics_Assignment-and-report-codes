@@ -44,3 +44,15 @@ k = p-0; A(3*k-2,22) = 1;  A(3*k-1,23) = 1; A(3*k,24) = 1; b(22:24) = disp_corne
 
 options = optimset('Display','iter', 'MaxFunEvals',3*10^5);
 [un_Green, Emin_Green] = fmincon(internal_energy, un_natural, [], [], A', b, [], [], [], options);
+
+figure('position', [0, 0, 400, 400]);
+set(0,'defaultAxesFontSize',16);
+set(0,'defaultTextFontSize',16);
+
+clf;
+draw_body(elastic, reshape(un_natural, [3,npoints]));
+saveas(gcf, 'beam_twisting_Green_strain_natural.png');
+
+clf;
+draw_body(elastic, reshape(un_Green, [3,npoints]));
+saveas(gcf, 'beam_twisting_Green_strain_deformed.png');
