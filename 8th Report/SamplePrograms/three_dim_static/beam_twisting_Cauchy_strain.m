@@ -57,3 +57,8 @@ saveas(gcf, 'beam_twisting_Cauchy_strain_natural.png');
 clf;
 draw_body(elastic, reshape(un_Cauchy, [3,npoints]));
 saveas(gcf, 'beam_twisting_Cauchy_strain_deformed.png');
+
+function energy = internal_energy_params( un, npoints, elastic )
+    disps = reshape(un, [3,npoints]);
+    energy = elastic.total_strain_potential_energy(disps);
+end
