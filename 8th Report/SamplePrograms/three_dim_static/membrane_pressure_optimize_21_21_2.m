@@ -29,3 +29,23 @@ un_natural = reshape(disps_natural, [3*npoints,1]);
 figure('position', [0, 0, 400, 340]);
 set(0,'defaultAxesFontSize',16);
 set(0,'defaultTextFontSize',16);
+
+clf;
+draw_body(elastic,disps_natural);
+saveas(gcf, 'membrane_pressure_optimize_21_21_2_natural.png');
+
+K = elastic.Stiffness_Matrix;
+index = sort([ 1:l, (1:m-2)*l+1, (1:m-2)*l+l, (m-1)*l+(1:l) ]);
+A = elastic.constraint_matrix(index);
+numConstraints = 3*size(index,2);
+mat = [ K, -A; -A', zeros(numConstraints,numConstraints) ];
+
+positions = elastic.positional_vectors;
+boundary_faces = elastic.BoundaryFaces;
+bottom_faces = [];
+for p=1:size(boundary_faces,1)
+    i=boundary_faces(p,1); j=boundary_faces(p,2); k=boundary_faces(p,3);
+    if positions(3,i) <= 0 && positions(3,j) <= 0 && positions(3,k) <= 0
+        bottom_faces = [ bottom_faces; boundary_faces(p,:) ];
+    end
+end
