@@ -21,3 +21,11 @@ ntetrahedra = size(tetrahedra,1);
 elastic = Body(npoints, points, ntetrahedra, tetrahedra);
 elastic = elastic.mechanical_parameters(density, lambda, mu);
 elastic = elastic.calculate_stiffness_matrix;
+
+disps_natural = zeros(3,npoints);
+un_natural = reshape(disps_natural, [3*npoints,1]);
+
+%figure('position', [0, 0, 600, 510]);
+figure('position', [0, 0, 400, 340]);
+set(0,'defaultAxesFontSize',16);
+set(0,'defaultTextFontSize',16);
