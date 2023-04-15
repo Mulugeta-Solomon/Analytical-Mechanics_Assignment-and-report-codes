@@ -27,3 +27,17 @@ disps_natural = zeros(3,npoints);
 un_natural = reshape(disps_natural, [3*npoints,1]);
 
 internal_energy = @(un) internal_energy_params( un, npoints, elastic );
+
+% fix point 1, 2, 3, 4, lmn-3, lmn-2, lmn-1, lmn
+% a set of constraints: A' un = b (each column specifies one constraint)
+A = zeros(3*npoints, 3*8); b = zeros(3*8,1);
+k = 1; A(3*k-2, 1) = 1; A(3*k-1, 2) = 1; A(3*k, 3) = 1;
+k = 2; A(3*k-2, 4) = 1; A(3*k-1, 5) = 1; A(3*k, 6) = 1;
+k = 3; A(3*k-2, 7) = 1; A(3*k-1, 8) = 1; A(3*k, 9) = 1;
+k = 4; A(3*k-2,10) = 1; A(3*k-1,11) = 1; A(3*k,12) = 1;
+p = l*m*n;
+disp_corner = @(r, theta) r*[ cos(theta+rotation_angle)-cos(theta); sin(theta+rotation_angle)-sin(theta); 0 ];
+k = p-3; A(3*k-2,13) = 1;  A(3*k-1,14) = 1; A(3*k,15) = 1; b(13:15) = disp_corner(cube_size/sqrt(2), (-3/4)*pi);
+k = p-2; A(3*k-2,16) = 1;  A(3*k-1,17) = 1; A(3*k,18) = 1; b(16:18) = disp_corner(cube_size/sqrt(2), (-1/4)*pi);
+k = p-1; A(3*k-2,19) = 1;  A(3*k-1,20) = 1; A(3*k,21) = 1; b(19:21) = disp_corner(cube_size/sqrt(2), ( 3/4)*pi);
+k = p-0; A(3*k-2,22) = 1;  A(3*k-1,23) = 1; A(3*k,24) = 1; b(22:24) = disp_corner(cube_size/sqrt(2), ( 1/4)*pi);
