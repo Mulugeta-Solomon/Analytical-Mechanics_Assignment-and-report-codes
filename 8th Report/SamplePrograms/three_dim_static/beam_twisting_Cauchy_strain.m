@@ -3,3 +3,4 @@
 
 % g, cm, sec
 
+addpath('../three_dim_fea')
