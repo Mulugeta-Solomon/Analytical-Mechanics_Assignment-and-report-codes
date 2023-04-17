@@ -96,3 +96,8 @@ for t = 0:0.01:tp+th+tf
     fr = fr + 1;
 end
 M(fr) = getframe(gcf);
+
+v = VideoWriter('beam_bending_push_Green_strain', 'MPEG-4');
+open(v);
+writeVideo(v, M);
+close(v);
