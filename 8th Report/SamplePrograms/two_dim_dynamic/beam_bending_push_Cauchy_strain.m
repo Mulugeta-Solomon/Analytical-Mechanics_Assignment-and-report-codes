@@ -56,3 +56,7 @@ f_beam_bending_push = @(t,q) beam_bending_push_Cauchy_param(t,q, elastic, A,b0,b
 time = [time_push; time_hold; time_free];
 q = [q_push; q_hold; q_free];
 
+figure('position', [0, 0, 400, 400]);
+set(0,'defaultAxesFontSize',16);
+set(0,'defaultTextFontSize',16);
+
