@@ -35,3 +35,11 @@ interval = [0,tp];
 qinit = zeros(4*npoints,1);
 f_beam_bending_push = @(t,q) beam_bending_push_Green_param(t,q, elastic, A,b0,b1, alpha);
 [time_push, q_push] = ode15s(f_beam_bending_push, interval, qinit);
+
+% holding
+b0 = [ zeros(2*3,1); upush*tp; vpush*tp ];
+b1 = zeros(2*4,1);
+interval = [tp, tp+th];
+qinit = q_push(end,:);
+f_beam_bending_push = @(t,q) beam_bending_push_Green_param(t,q, elastic, A,b0,b1, alpha);
+[time_hold, q_hold] = ode15s(f_beam_bending_push, interval, qinit);
