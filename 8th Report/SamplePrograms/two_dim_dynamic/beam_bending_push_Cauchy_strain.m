@@ -96,3 +96,37 @@ for t = 0:0.01:tp+th+tf
     fr = fr + 1;
 end
 
+M(fr) = getframe(gcf);
+
+v = VideoWriter('beam_bending_push_Cauchy_strain', 'MPEG-4');
+open(v);
+writeVideo(v, M);
+close(v);
+
+function dotq = beam_bending_push_Cauchy_param(t,q, body, A,b0,b1, alpha)
+    %disp(t);
+    disp(num2str(t,"%6.4f"));
+    
+    persistent npoints M B K;
+    if isempty(npoints)
+        npoints = body.numNodalPoints;
+        M = body.Inertia_Matrix;
+        B = body.Damping_Matrix;
+        K = body.Stiffness_Matrix;
+    end
+    
+    un = q(1:2*npoints);
+    vn = q(2*npoints+1:4*npoints);
+    
+    dotun = vn;
+    
+    coef = [ M, -A; -A', zeros(size(A,2),size(A,2))];
+    forces = body.nodal_forces_Cauchy_strain(reshape(un, [2,npoints]));
+    vec = [ forces-B*vn; 2*alpha*(A'*vn-b1)+(alpha^2)*(A'*un-(b0+b1*t)) ];
+    sol = coef\vec;
+    dotvn = sol(1:2*npoints);
+    
+    dotq = [dotun; dotvn];
+end
+
+
