@@ -26,3 +26,12 @@ th = 0.2;
 tf = 1.5;
 
 alpha = 1e+6;
+
+% pushing
+A = elastic.constraint_matrix([1,12,23, 22]);
+b0 = zeros(2*4,1);
+b1 = [ zeros(2*3,1); upush; vpush ];
+interval = [0,tp];
+qinit = zeros(4*npoints,1);
+f_beam_bending_push = @(t,q) beam_bending_push_Green_param(t,q, elastic, A,b0,b1, alpha);
+[time_push, q_push] = ode15s(f_beam_bending_push, interval, qinit);
