@@ -60,3 +60,18 @@ figure('position', [0, 0, 400, 400]);
 set(0,'defaultAxesFontSize',16);
 set(0,'defaultTextFontSize',16);
 
+clf;
+for t = 0:0.1:tp+th+tf
+    fprintf("time %f\n", t);
+    index = nearest_index(time, t);
+    disps = reshape(q(index,1:npoints*2), [2,npoints]);
+    elastic.draw(disps);
+    hold off;
+    xlim([0,12]);
+    ylim([-6,6]);
+    pbaspect([1 1 1]);
+    grid on;
+    filename = strcat('beam_bending_push_Cauchy_strain/deform_', num2str(floor(1000*t),'%04d'), '.png');
+    saveas(gcf, filename, 'png');
+end
+
