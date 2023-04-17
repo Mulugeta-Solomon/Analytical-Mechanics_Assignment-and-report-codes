@@ -52,3 +52,10 @@ interval = [tp+th, tp+th+tf];
 qinit = q_hold(end,:);
 f_beam_bending_push = @(t,q) beam_bending_push_Green_param(t,q, elastic, A,b0,b1, alpha);
 [time_free, q_free] = ode15s(f_beam_bending_push, interval, qinit);
+
+time = [time_push; time_hold; time_free];
+q = [q_push; q_hold; q_free];
+
+figure('position', [0, 0, 400, 400]);
+set(0,'defaultAxesFontSize',16);
+set(0,'defaultTextFontSize',16);
