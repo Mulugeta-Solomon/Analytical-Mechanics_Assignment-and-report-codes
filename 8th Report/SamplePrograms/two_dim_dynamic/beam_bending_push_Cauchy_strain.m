@@ -44,3 +44,15 @@ qinit = q_push(end,:);
 f_beam_bending_push = @(t,q) beam_bending_push_Cauchy_param(t,q, elastic, A,b0,b1, alpha);
 [time_hold, q_hold] = ode15s(f_beam_bending_push, interval, qinit);
 
+% free
+A = elastic.constraint_matrix([1,12,23]);
+b0 = zeros(2*3,1);
+b1 = zeros(2*3,1);
+interval = [tp+th, tp+th+tf];
+qinit = q_hold(end,:);
+f_beam_bending_push = @(t,q) beam_bending_push_Cauchy_param(t,q, elastic, A,b0,b1, alpha);
+[time_free, q_free] = ode15s(f_beam_bending_push, interval, qinit);
+
+time = [time_push; time_hold; time_free];
+q = [q_push; q_hold; q_free];
+
