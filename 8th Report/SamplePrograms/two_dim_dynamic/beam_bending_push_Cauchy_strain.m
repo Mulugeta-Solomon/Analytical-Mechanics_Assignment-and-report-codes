@@ -75,3 +75,24 @@ for t = 0:0.1:tp+th+tf
     saveas(gcf, filename, 'png');
 end
 
+clf('reset');
+ts = time(1);
+te = time(end);
+fr = 1;
+clear M;
+for t = 0:0.01:tp+th+tf
+    fprintf("video time %f\n", t);
+    index = nearest_index(time, t);
+    disps = reshape(q(index,1:npoints*2), [2,npoints]);
+    elastic.draw(disps);
+    hold off;
+    xlim([0,12]);
+    ylim([-6,6]);
+    pbaspect([1 1 1]);
+    title(['time ' num2str(t,"%3.2f")]);
+    grid on;
+    drawnow;
+    M(fr) = getframe(gcf);
+    fr = fr + 1;
+end
+
