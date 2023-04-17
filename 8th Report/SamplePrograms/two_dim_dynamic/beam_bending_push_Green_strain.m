@@ -20,3 +20,9 @@ elastic = elastic.viscous_parameters(lambda_vis, mu_vis);
 elastic = elastic.calculate_stiffness_matrix;
 elastic = elastic.calculate_damping_matrix;
 elastic = elastic.calculate_inertia_matrix;
+
+tp = 0.3; upush = 0; vpush = -2.5*height/tp;
+th = 0.2;
+tf = 1.5;
+
+alpha = 1e+6;
