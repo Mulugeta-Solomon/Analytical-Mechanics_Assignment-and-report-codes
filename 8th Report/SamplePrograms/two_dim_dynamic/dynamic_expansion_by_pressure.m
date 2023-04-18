@@ -75,3 +75,8 @@ for t = 0:0.01:tf
     disp(t);
 end
 M(fr) = getframe(gcf);
+
+v = VideoWriter('dynamic_expansion_by_pressure', 'MPEG-4');
+open(v);
+writeVideo(v, M);
+close(v);
