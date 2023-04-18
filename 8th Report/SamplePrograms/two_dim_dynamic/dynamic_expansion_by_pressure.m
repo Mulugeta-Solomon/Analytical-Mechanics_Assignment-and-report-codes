@@ -54,3 +54,24 @@ for t = 0:0.1:tf
     filename = strcat('dynamic_expansion_by_pressure/deform_', num2str(floor(1000*t),'%04d'), '.png');
     saveas(gcf, filename, 'png');
 end
+
+clf('reset');
+ts = time(1);
+te = time(end);
+fr = 1;
+clear M;
+for t = 0:0.01:tf
+    index = nearest_index(time, t);
+    disps = reshape(q(index,1:npoints*2), [2,npoints]);
+    elastic.draw(disps);
+    hold off;
+    xlim([0,10]); ylim([-2,5]);
+    pbaspect([10 7 10]);
+    title(['time ' num2str(t,"%3.2f")]);
+    grid on;
+    drawnow;
+    M(fr) = getframe(gcf);
+    fr = fr + 1;
+    disp(t);
+end
+M(fr) = getframe(gcf);
