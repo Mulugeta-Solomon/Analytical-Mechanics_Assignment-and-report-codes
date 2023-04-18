@@ -9,3 +9,7 @@ Young = 1.0*1e+6; c = 0.4*1e+3; nu = 0.48; density = 1.00;
 % p = 2e+4 = 0.02e+6 --> 0.002 MPa = 2 KPa
 %pressure = 2e+4; filename = 'expansion_by_pressure_deformed.png';
 %pressure = -2e+4; filename = 'expansion_by_pressure_deformed_negative.png';
+
+mrect = 11; nrect = 2;
+[ points, triangles ] = rectangular_object( mrect, nrect, 10, 1 );
+thickness = 1;
