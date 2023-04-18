@@ -30,3 +30,9 @@ b0 = zeros(2*4,1);
 b1 = zeros(2*4,1);
 
 alpha = 1e+6;
+
+tf = 3.00;
+interval = [0, tf];
+qinit = zeros(4*npoints,1);
+expansion = @(t,q) object_constraint_param(t,q, elastic, index_pressure_area, A,b0,b1, alpha);
+[time, q] = ode45(expansion, interval, qinit);
