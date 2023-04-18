@@ -24,3 +24,9 @@ elastic = elastic.calculate_damping_matrix;
 elastic = elastic.calculate_inertia_matrix;
 
 index_pressure_area = [mrect:-1:1];
+
+A = elastic.constraint_matrix([1,11,12,22]);
+b0 = zeros(2*4,1);
+b1 = zeros(2*4,1);
+
+alpha = 1e+6;
