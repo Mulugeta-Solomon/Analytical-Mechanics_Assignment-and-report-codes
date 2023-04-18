@@ -22,3 +22,5 @@ elastic = elastic.viscous_parameters(lambda_vis, mu_vis);
 elastic = elastic.calculate_stiffness_matrix;
 elastic = elastic.calculate_damping_matrix;
 elastic = elastic.calculate_inertia_matrix;
+
+index_pressure_area = [mrect:-1:1];
