@@ -36,3 +36,7 @@ interval = [0, tf];
 qinit = zeros(4*npoints,1);
 expansion = @(t,q) object_constraint_param(t,q, elastic, index_pressure_area, A,b0,b1, alpha);
 [time, q] = ode45(expansion, interval, qinit);
+
+figure('position', [0, 0, 600, 420]);
+set(0,'defaultAxesFontSize',16);
+set(0,'defaultTextFontSize',16);
