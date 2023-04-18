@@ -80,3 +80,35 @@ v = VideoWriter('dynamic_expansion_by_pressure', 'MPEG-4');
 open(v);
 writeVideo(v, M);
 close(v);
+
+function dotq = object_constraint_param(t,q, body, index_pressure_area, A,b0,b1, alpha)
+    %disp(t);
+    disp(num2str(t,"%6.4f"));
+    
+    persistent npoints thickness M B K;
+    if isempty(npoints)
+        npoints = body.numNodalPoints;
+        thickness = body.Thickness;
+        M = body.Inertia_Matrix;
+        B = body.Damping_Matrix;
+        K = body.Stiffness_Matrix;
+    end
+    
+    un = q(1:2*npoints);
+    vn = q(2*npoints+1:4*npoints);
+
+    disps = reshape(un, [2,npoints]);
+    %area = body.surrounded_area(index_pressure_area, disps(:,index_pressure_area));
+    area_gradient = body.surrounded_area_gradient(index_pressure_area, disps(:,index_pressure_area));
+    
+    dotun = vn;
+    
+    coef = [ M, -A; ...
+        -A', zeros(size(A,2),size(A,2))];
+    vec = [ -K*un-B*vn + applied_pressure(t)*thickness*area_gradient; ...
+        2*alpha*(A'*vn-b1)+(alpha^2)*(A'*un-(b0+b1*t)) ];
+    sol = coef\vec;
+    dotvn = sol(1:2*npoints);
+    
+    dotq = [dotun; dotvn];
+end
