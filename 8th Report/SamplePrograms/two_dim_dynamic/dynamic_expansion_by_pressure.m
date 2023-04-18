@@ -112,3 +112,12 @@ function dotq = object_constraint_param(t,q, body, index_pressure_area, A,b0,b1,
     
     dotq = [dotun; dotvn];
 end
+
+function p = applied_pressure (t)
+    % p = 2e+4 = 0.02e+6 --> 0.002 MPa = 2 KPa
+    if t <= 1.50
+        p = 2e+4;
+    else
+        p = 0e+4;
+    end
+end
