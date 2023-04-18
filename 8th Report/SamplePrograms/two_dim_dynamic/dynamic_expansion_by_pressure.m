@@ -40,3 +40,17 @@ expansion = @(t,q) object_constraint_param(t,q, elastic, index_pressure_area, A,
 figure('position', [0, 0, 600, 420]);
 set(0,'defaultAxesFontSize',16);
 set(0,'defaultTextFontSize',16);
+
+clf;
+for t = 0:0.1:tf
+    fprintf("time %f\n", t);
+    index = nearest_index(time, t);
+    disps = reshape(q(index,1:npoints*2), [2,npoints]);
+    elastic.draw(disps);
+    hold off;
+    xlim([0,10]); ylim([-2,5]);
+    pbaspect([10 7 10]);
+    grid on;
+    filename = strcat('dynamic_expansion_by_pressure/deform_', num2str(floor(1000*t),'%04d'), '.png');
+    saveas(gcf, filename, 'png');
+end
