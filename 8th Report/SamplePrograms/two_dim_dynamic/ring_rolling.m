@@ -39,3 +39,9 @@ xlim([-6,12]); ylim([-2,10]);
 pbaspect([1.5 1 1]);
 grid on;
 drawnow;
+
+ring = ring.calculate_stiffness_matrix;
+ring = ring.calculate_damping_matrix;
+ring = ring.calculate_inertia_matrix;
+ring = ring.calculate_coefficient_matrices_for_Green_strain;
+
