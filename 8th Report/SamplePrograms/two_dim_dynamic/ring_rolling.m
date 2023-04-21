@@ -31,3 +31,11 @@ figure('position', [0, 0, 600, 400]);
 set(0,'defaultAxesFontSize',16);
 set(0,'defaultTextFontSize',16);
 floor_color = [0.85 0.85 0.85];
+
+clf;
+ring.draw_individual;
+fill([12, 12, -6, -6], [-2, 0, 0, -2], floor_color, 'FaceAlpha', 0.2, 'EdgeColor','none');
+xlim([-6,12]); ylim([-2,10]);
+pbaspect([1.5 1 1]);
+grid on;
+drawnow;
