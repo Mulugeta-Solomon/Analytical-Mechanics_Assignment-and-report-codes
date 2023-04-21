@@ -114,6 +114,15 @@ function dotq = ring_free_param(t,q, body)
         for k=1:npoints
             xn = [ xn; body.NodalPoints(k).Coordinates ];
         end
+        thickness = body.Thickness;
+        M = body.Inertia_Matrix;
+        B = body.Damping_Matrix;
+        K = body.Stiffness_Matrix;
+        gravitational_force = body.Gravitational_Vector;
+        Kcontact = 1e+6; % N/m = kg/s^2 = 10^3 g/s^2
+        Bcontact = 0;
+        friction_damping = 2000; % Ns/m = 10^3 g/s
+    end
     
 
 
