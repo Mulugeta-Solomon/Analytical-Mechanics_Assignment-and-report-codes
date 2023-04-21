@@ -127,6 +127,12 @@ function dotq = ring_free_param(t,q, body)
     vn = q(2*npoints+1:4*npoints);
     disps = reshape(un, [2,npoints]);
     
+    % Cauchy strain
+    %elastic_force = -K*un -B*vn;
+    % Green strain
+    elastic_force = body.nodal_forces_Green_strain(disps) -B*vn;
+    
+    
     
 
 
