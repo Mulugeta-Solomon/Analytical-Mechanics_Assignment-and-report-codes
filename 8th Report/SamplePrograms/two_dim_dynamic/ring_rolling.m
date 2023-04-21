@@ -131,6 +131,15 @@ function dotq = ring_free_param(t,q, body)
     %elastic_force = -K*un -B*vn;
     % Green strain
     elastic_force = body.nodal_forces_Green_strain(disps) -B*vn;
+
+    rn = xn + un;
+    contact_force = zeros(2*npoints,1);
+    for k=1:npoints
+        if rn(2*k) < 0
+            contact_force(2*k-1) = -friction_damping*vn(2*k-1);
+            contact_force(2*k) = -Kcontact*rn(2*k) -Bcontact*vn(2*k);            
+        end
+    end
     
     
     
