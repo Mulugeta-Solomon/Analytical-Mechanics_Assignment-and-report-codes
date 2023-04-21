@@ -16,3 +16,8 @@ Young = 1.0*1e+6; c = 0.4*1e+3; nu = 0.48; density = 1.00;
 density_heavy = 10*density;
 [ lambda, mu ] = Lame_constants( Young, nu );
 [ lambda_vis, mu_vis ] = Lame_constants( c, nu );
+
+ring = ring.define_subregion([1:32]);
+ring = ring.subregion_mechanical_parameters(density_heavy, lambda, mu);
+ring = ring.subregion_viscous_parameters(lambda_vis, mu_vis);
+ring = ring.subregion_color( [0.85 0.85 0.85] );
