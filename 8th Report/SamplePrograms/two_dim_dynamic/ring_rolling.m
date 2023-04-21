@@ -99,3 +99,9 @@ for t = 0:0.01:tf
 end
 M(fr) = getframe(gcf);
 
+v = VideoWriter('ring_rolling', 'MPEG-4');
+open(v);
+writeVideo(v, M);
+close(v);
+
+
