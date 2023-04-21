@@ -77,4 +77,25 @@ for t = 0:0.1:tf
     filename = strcat('ring_rolling/deform_', num2str(floor(1000*t),'%04d'), '.png');
     saveas(gcf, filename, 'png');
 end
+clf('reset');
+ts = time(1);
+te = time(end);
+fr = 1;
+clear M;
+for t = 0:0.01:tf
+    fprintf("video time %f\n", t);
+    index = nearest_index(time, t);
+    disps = reshape(q(index,1:npoints*2), [2,npoints]);
+    ring.draw_individual(disps);
+    fill([12, 12, -6, -6], [-2, 0, 0, -2], floor_color, 'FaceAlpha', 0.2, 'EdgeColor','none');
+    hold off;
+    xlim([-6,12]); ylim([-2,10]); xticks([-6:2:12]);
+    pbaspect([1.5 1 1]);
+    title(['time ' num2str(t,"%3.2f")]);
+    grid on;
+    drawnow;
+    M(fr) = getframe(gcf);
+    fr = fr + 1;
+end
+M(fr) = getframe(gcf);
 
