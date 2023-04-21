@@ -10,3 +10,9 @@ points = points + [ 0; router ];
 npoints = size(points, 2);
 ntriangles = size(triangles, 1);
 ring = Body(npoints, points, ntriangles, triangles, thickness);
+
+% E = 0.1 MPa; c = 0.04 kPa s; rho = 1 g/cm^3
+Young = 1.0*1e+6; c = 0.4*1e+3; nu = 0.48; density = 1.00;
+density_heavy = 10*density;
+[ lambda, mu ] = Lame_constants( Young, nu );
+[ lambda_vis, mu_vis ] = Lame_constants( c, nu );
