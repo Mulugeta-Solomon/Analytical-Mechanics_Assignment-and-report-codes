@@ -26,3 +26,8 @@ ring = ring.define_subregion([33:64]);
 ring = ring.subregion_mechanical_parameters(density, lambda, mu);
 ring = ring.subregion_viscous_parameters(lambda_vis, mu_vis);
 ring = ring.subregion_color( [0.95 0.95 0.95] );
+
+figure('position', [0, 0, 600, 400]);
+set(0,'defaultAxesFontSize',16);
+set(0,'defaultTextFontSize',16);
+floor_color = [0.85 0.85 0.85];
