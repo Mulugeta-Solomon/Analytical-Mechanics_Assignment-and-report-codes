@@ -107,6 +107,13 @@ close(v);
 function dotq = ring_free_param(t,q, body)
     %disp(t);
     disp(num2str(t,"%8.6f"));
+    persistent npoints xn thickness M B K gravitational_force;
+    persistent Kcontact Bcontact friction_damping;
+    if isempty(npoints)
+        npoints = body.numNodalPoints;
+        for k=1:npoints
+            xn = [ xn; body.NodalPoints(k).Coordinates ];
+        end
     
 
 
