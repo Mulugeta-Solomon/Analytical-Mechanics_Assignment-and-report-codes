@@ -21,3 +21,8 @@ ring = ring.define_subregion([1:32]);
 ring = ring.subregion_mechanical_parameters(density_heavy, lambda, mu);
 ring = ring.subregion_viscous_parameters(lambda_vis, mu_vis);
 ring = ring.subregion_color( [0.85 0.85 0.85] );
+
+ring = ring.define_subregion([33:64]);
+ring = ring.subregion_mechanical_parameters(density, lambda, mu);
+ring = ring.subregion_viscous_parameters(lambda_vis, mu_vis);
+ring = ring.subregion_color( [0.95 0.95 0.95] );
