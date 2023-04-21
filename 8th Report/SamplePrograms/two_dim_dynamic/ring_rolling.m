@@ -63,3 +63,18 @@ dt1 = datetime;
 dt01 = between(dt0, dt1);
 dt01
 
+clf;
+for t = 0:0.1:tf
+    fprintf("time %f\n", t);
+    index = nearest_index(time, t);
+    disps = reshape(q(index,1:npoints*2), [2,npoints]);
+    ring.draw_individual(disps);
+    fill([12, 12, -6, -6], [-2, 0, 0, -2], floor_color, 'FaceAlpha', 0.2, 'EdgeColor','none');
+    hold off;
+    xlim([-6,12]); ylim([-2,10]); xticks([-6:2:12]);
+    pbaspect([1.5 1 1]);
+    grid on;
+    filename = strcat('ring_rolling/deform_', num2str(floor(1000*t),'%04d'), '.png');
+    saveas(gcf, filename, 'png');
+end
+
