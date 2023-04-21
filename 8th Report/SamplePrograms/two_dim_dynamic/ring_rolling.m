@@ -59,4 +59,7 @@ qinit = [uninit; vninit];
 %[time, q] = ode15s(tube_free, interval, qinit);
 [time, q] = ode45(ring_free, interval, qinit);
 
+dt1 = datetime;
+dt01 = between(dt0, dt1);
+dt01
 
