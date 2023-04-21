@@ -123,6 +123,10 @@ function dotq = ring_free_param(t,q, body)
         Bcontact = 0;
         friction_damping = 2000; % Ns/m = 10^3 g/s
     end
+    un = q(1:2*npoints);
+    vn = q(2*npoints+1:4*npoints);
+    disps = reshape(un, [2,npoints]);
+    
     
 
 
