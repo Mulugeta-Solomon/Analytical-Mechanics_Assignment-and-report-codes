@@ -53,4 +53,10 @@ tf = 5.0;
 interval = [0, tf];
 ring_free = @(t,q) ring_free_param(t,q, ring);
 
+uninit = zeros(2*npoints,1);
+vninit = zeros(2*npoints,1);
+qinit = [uninit; vninit];
+%[time, q] = ode15s(tube_free, interval, qinit);
+[time, q] = ode45(ring_free, interval, qinit);
+
 
