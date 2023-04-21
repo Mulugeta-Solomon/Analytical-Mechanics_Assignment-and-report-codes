@@ -140,6 +140,18 @@ function dotq = ring_free_param(t,q, body)
             contact_force(2*k) = -Kcontact*rn(2*k) -Bcontact*vn(2*k);            
         end
     end
+    f = elastic_force + gravitational_force + contact_force;
+    
+    dotun = vn;
+    
+    coef = M;
+    vec = f;
+    sol = coef\vec;
+    dotvn = sol(1:2*npoints);
+    
+    dotq = [dotun; dotvn];
+end
+
     
     
     
