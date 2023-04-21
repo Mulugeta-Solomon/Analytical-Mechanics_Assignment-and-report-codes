@@ -49,3 +49,8 @@ ring = ring.calculate_coefficient_matrices_for_Green_strain;
 grav = [0; -980];
 ring = ring.calculate_gravitational_vector(grav);
 
+tf = 5.0;
+interval = [0, tf];
+ring_free = @(t,q) ring_free_param(t,q, ring);
+
+
