@@ -42,4 +42,10 @@ connect = [0:7]*(m/8)*n + 1;
 %extensional_forces = [ 0; -1e+5; 0; 0; 0; 0; 0; 0 ];
 % N = Kg m/s^2 = 10^3 g 10^2 cm/s^2 = 10^5 g cm/s^2
 
+uninit = zeros(2*npoints,1);
+vninit = zeros(2*npoints,1);
+xcinit = [ 0; router ];
+vcinit = [ 0; 0 ];
+qinit = [ uninit; vninit; xcinit; vcinit ];
+
 
