@@ -69,4 +69,14 @@ pbaspect([2 1 1]);
 grid on;
 drawnow;
 
+interval = [0, time1];
+extensional_forces = [ 0; 0; 0; 0; 0; 0; 0; 0 ];
+ring_free = @(t,q) ring_free_param(t,q, ring, grav, mass, springs, connect, extensional_forces);
+[t1, q1] = ode45(ring_free, interval, qinit);
+draw_ring_and_springs ( gcf, t1, q1, tinterval, ring, connect, floor_color );
+qinit = q1(end,:);
+M01 = make_video_clip( gcf, t1, q1, vinterval, ring, connect, floor_color );
+save('ring_and_springs_period01.mat', 't1', 'q1', 'M01', '-v7.3');
+clear t1 q1;
+
 
