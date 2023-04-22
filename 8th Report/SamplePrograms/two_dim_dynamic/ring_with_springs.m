@@ -187,4 +187,17 @@ function dotq = ring_free_param(t,q, ring, grav, mass, springs, connect, extensi
         f(2*j-1:2*j) = f(2*j-1:2*j) + fj;
     end
 
+    dotun = vn;
+    
+    coef = M;
+    vec = f;
+    sol = coef\vec;
+    dotvn = sol(1:2*npoints);
+    
+    dotxc = vc;
+    dotvc = (1/mass)*(mass*grav + fc_all);
+    
+    dotq = [dotun; dotvn; dotxc; dotvc];
+end
+
 
