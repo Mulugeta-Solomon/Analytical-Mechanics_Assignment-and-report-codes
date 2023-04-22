@@ -35,4 +35,7 @@ ring = ring.calculate_gravitational_vector(grav);
 
 mass = 1;
 
+for i=1:8
+    springs(i) = Spring(2e+4, 0.0, rinner);
+end
 
