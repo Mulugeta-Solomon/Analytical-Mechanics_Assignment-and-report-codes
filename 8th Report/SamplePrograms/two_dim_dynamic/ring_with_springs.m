@@ -156,5 +156,9 @@ function dotq = ring_free_param(t,q, ring, grav, mass, springs, connect, extensi
         Bcontact = 0;
         friction_damping = 20000; % Ns/m = 10^3 g/s
     end
+    un = q(1:2*npoints);
+    vn = q(2*npoints+1:4*npoints);
+    xc = q(4*npoints+1:4*npoints+2);
+    vc = q(4*npoints+3:4*npoints+4);
 
 
