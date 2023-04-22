@@ -177,4 +177,14 @@ function dotq = ring_free_param(t,q, ring, grav, mass, springs, connect, extensi
         end
     end
 
+    f = elastic_force + gravitational_force + contact_force;
+    
+    fc_all = zeros(2,1);
+    for i=1:8
+        j = connect(i);
+        [fc,fj] = springs(i).end_forces( xc, vc, rn(2*j-1:2*j), vn(2*j-1:2*j), extensional_forces(i) );
+        fc_all = fc_all + fc;
+        f(2*j-1:2*j) = f(2*j-1:2*j) + fj;
+    end
+
 
