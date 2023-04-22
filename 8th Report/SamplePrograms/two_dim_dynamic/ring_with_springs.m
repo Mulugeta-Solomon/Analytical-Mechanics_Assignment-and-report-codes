@@ -24,3 +24,9 @@ Young = 1.0*1e+6; c = 0.4*1e+3; nu = 0.48; density = 1.00;
 ring = ring.mechanical_parameters(density, lambda, mu);
 ring = ring.viscous_parameters(lambda_vis, mu_vis);
 
+ring = ring.calculate_stiffness_matrix;
+ring = ring.calculate_damping_matrix;
+ring = ring.calculate_inertia_matrix;
+ring = ring.calculate_coefficient_matrices_for_Green_strain;
+
+
