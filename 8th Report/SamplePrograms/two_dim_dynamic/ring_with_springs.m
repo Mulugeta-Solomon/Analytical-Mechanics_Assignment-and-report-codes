@@ -161,4 +161,20 @@ function dotq = ring_free_param(t,q, ring, grav, mass, springs, connect, extensi
     xc = q(4*npoints+1:4*npoints+2);
     vc = q(4*npoints+3:4*npoints+4);
 
+    disps = reshape(un, [2,npoints]);
+    
+    % Cauchy strain
+    %elastic_force = -K*un -B*vn;
+    % Green strain
+    elastic_force = ring.nodal_forces_Green_strain(disps) -B*vn;
+    
+    rn = xn + un;
+    contact_force = zeros(2*npoints,1);
+    for k=1:npoints
+        if rn(2*k) < 0
+            contact_force(2*k-1) = -friction_damping*vn(2*k-1);
+            contact_force(2*k) = -Kcontact*rn(2*k) -Bcontact*vn(2*k);            
+        end
+    end
+
 
