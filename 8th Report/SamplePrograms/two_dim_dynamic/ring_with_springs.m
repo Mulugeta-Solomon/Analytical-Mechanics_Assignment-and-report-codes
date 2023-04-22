@@ -129,5 +129,12 @@ M56 = make_video_clip( gcf, t6, q6, vinterval, ring, connect, floor_color );
 save('ring_and_springs_period56.mat', 't6', 'q6', 'M56', '-v7.3');
 clear t6 q6;
 
+% video clip
+M = [ M01, M12(2:end), M23(2:end), M34(2:end), M45(2:end), M56(2:end) ];
+v = VideoWriter('ring_with_springs', 'MPEG-4');
+open(v);
+writeVideo(v, M);
+close(v);
+
 
 
