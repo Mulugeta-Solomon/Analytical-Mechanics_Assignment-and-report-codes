@@ -58,4 +58,15 @@ set(0,'defaultAxesFontSize',16);
 set(0,'defaultTextFontSize',16);
 floor_color = [0.85 0.85 0.85];
 
+clf;
+%ring.draw;
+disps = reshape(uninit, [2,npoints]);
+ring.draw_individual(disps);
+draw_mass_and_springs(ring, xcinit, connect, disps);
+fill([22, 22, -6, -6], [-2, 0, 0, -2], floor_color, 'FaceAlpha', 0.2, 'EdgeColor','none');
+xlim([-6,22]); ylim([-2,12]);
+pbaspect([2 1 1]);
+grid on;
+drawnow;
+
 
