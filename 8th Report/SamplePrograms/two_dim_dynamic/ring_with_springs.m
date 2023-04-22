@@ -200,4 +200,11 @@ function dotq = ring_free_param(t,q, ring, grav, mass, springs, connect, extensi
     dotq = [dotun; dotvn; dotxc; dotvc];
 end
 
+function draw_ring_and_springs ( gcf, time, q, tinterval, ring, connect, floor_color )
+
+    persistent npoints;
+    if isempty(npoints)
+        npoints = ring.numNodalPoints;
+    end
+
 
