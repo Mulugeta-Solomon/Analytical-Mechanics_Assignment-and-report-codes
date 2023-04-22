@@ -226,4 +226,35 @@ function draw_ring_and_springs ( gcf, time, q, tinterval, ring, connect, floor_c
     end
 end
 
+function M = make_video_clip ( gcf, time, q, vinterval, ring, connect, floor_color )
+
+    persistent npoints;
+    if isempty(npoints)
+        npoints = ring.numNodalPoints;
+    end
+    
+    clf('reset');
+    tstart = time(1);
+    tend = time(end);
+    fr = 1;
+    clear M;
+    
+    for t = tstart:vinterval:tend
+        fprintf("video time %f\n", t);
+        index = nearest_index(time, t);
+        disps = reshape(q(index, 1:npoints*2), [2,npoints]);
+        ring.draw_individual(disps);
+        draw_mass_and_springs(ring, q(index, 4*npoints+1:4*npoints+2), connect, disps);
+        fill([22, 22, -6, -6], [-2, 0, 0, -2], floor_color, 'FaceAlpha', 0.2, 'EdgeColor','none');
+        hold off;
+        xlim([-6,22]); ylim([-2,12]);
+        pbaspect([2 1 1]);
+        title(['time ' num2str(t,"%3.2f")]);
+        grid on;
+        drawnow;
+        M(fr) = getframe(gcf);
+        fr = fr + 1;
+    end
+end
+
 
