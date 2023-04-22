@@ -8,3 +8,8 @@ time1 =  0 + period01; time2 = time1 + period12; time3 = time2 + period23; time4
 tinterval = 0.1;
 vinterval = 0.01;
 [ 0, time1, time2, time3, time4, time5, time6 ]
+
+m = 32; n = 3; router = 5; rinner = 4; thickness = 1;
+[points, triangles] = ring_object(m, n, router, rinner);
+points = points + [ 0; router ];
+
