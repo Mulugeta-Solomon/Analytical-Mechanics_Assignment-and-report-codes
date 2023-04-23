@@ -164,6 +164,11 @@ function dotq = ring_free_param(t,q, ring, grav, mass, springs, connect, extensi
 
     disps = reshape(un, [2,npoints]);
     
+    % Cauchy strain
+    %elastic_force = -K*un -B*vn;
+    % Green strain
+    elastic_force = ring.nodal_forces_Green_strain(disps) -B*vn;
+    
 
     
 
