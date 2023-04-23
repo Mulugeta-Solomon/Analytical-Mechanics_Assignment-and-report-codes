@@ -13,3 +13,8 @@ m = 32; n = 3; router = 5; rinner = 4; thickness = 1;
 [points, triangles] = ring_object(m, n, router, rinner);
 points = points + [ 0; router ];
 
+npoints = size(points, 2);
+ntriangles = size(triangles, 1);
+ring = Body(npoints, points, ntriangles, triangles, thickness);
+
+
