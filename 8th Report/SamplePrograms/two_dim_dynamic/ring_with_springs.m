@@ -200,6 +200,31 @@ function dotq = ring_free_param(t,q, ring, grav, mass, springs, connect, extensi
     dotq = [dotun; dotvn; dotxc; dotvc];
 end
 
+function draw_ring_and_springs ( gcf, time, q, tinterval, ring, connect, floor_color )
+
+    persistent npoints;
+    if isempty(npoints)
+        npoints = ring.numNodalPoints;
+    end
+
+    clf;
+    tstart = time(1);
+    tend = time(end);
+    for t = tstart:tinterval:tend
+        fprintf("time %f\n", t);
+        index = nearest_index(time, t);
+        disps = reshape(q(index, 1:npoints*2), [2,npoints]);
+        ring.draw_individual(disps);
+        draw_mass_and_springs(ring, q(index, 4*npoints+1:4*npoints+2), connect, disps);
+        fill([22, 22, -6, -6], [-2, 0, 0, -2], floor_color, 'FaceAlpha', 0.2, 'EdgeColor','none');
+        hold off;
+        xlim([-6,22]); ylim([-2,12]);
+        pbaspect([2 1 1]);
+        grid on;
+        filename = strcat('ring_with_springs/deform_', num2str(floor(1000*t),'%04d'), '.png');
+        saveas(gcf, filename, 'png');
+    end
+end
     
 
 
