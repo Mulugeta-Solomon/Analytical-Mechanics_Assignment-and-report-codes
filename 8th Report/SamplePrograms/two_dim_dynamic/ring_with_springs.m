@@ -79,6 +79,16 @@ M01 = make_video_clip( gcf, t1, q1, vinterval, ring, connect, floor_color );
 save('ring_and_springs_period01.mat', 't1', 'q1', 'M01', '-v7.3');
 clear t1 q1;
 
+interval = [time1, time2];
+extensional_forces = [ 0; -1e+5; 0; 0; 0; -1e+5; 0; 0 ];
+ring_free = @(t,q) ring_free_param(t,q, ring, grav, mass, springs, connect, extensional_forces);
+[t2, q2] = ode45(ring_free, interval, qinit);
+draw_ring_and_springs ( gcf, t2, q2, tinterval, ring, connect, floor_color );
+qinit = q2(end,:);
+M12 = make_video_clip( gcf, t2, q2, vinterval, ring, connect, floor_color );
+save('ring_and_springs_period12.mat', 't2', 'q2', 'M12', '-v7.3');
+clear t2 q2;
+
 
 
 
