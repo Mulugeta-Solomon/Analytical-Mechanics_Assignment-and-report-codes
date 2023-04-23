@@ -48,4 +48,10 @@ xcinit = [ 0; router ];
 vcinit = [ 0; 0 ];
 qinit = [ uninit; vninit; xcinit; vcinit ];
 
+%load('../two_dim_static/ring_and_springs_deformed_grav.mat', 'un_deformed', 'xc_deformed');
+%uninit = un_deformed;
+%xcinit = xc_deformed;
+%qinit = [ uninit; vninit; xcinit; vcinit ];
+
+
 
