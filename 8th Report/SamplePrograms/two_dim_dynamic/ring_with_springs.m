@@ -161,7 +161,10 @@ function dotq = ring_free_param(t,q, ring, grav, mass, springs, connect, extensi
     vn = q(2*npoints+1:4*npoints);
     xc = q(4*npoints+1:4*npoints+2);
     vc = q(4*npoints+3:4*npoints+4);
+
+    disps = reshape(un, [2,npoints]);
     
+
     
 
 
