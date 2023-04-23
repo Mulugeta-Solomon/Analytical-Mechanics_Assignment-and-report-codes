@@ -136,6 +136,26 @@ open(v);
 writeVideo(v, M);
 close(v);
 
+function dotq = ring_free_param(t,q, ring, grav, mass, springs, connect, extensional_forces)
+    %disp(t);
+    disp(num2str(t,"%8.6f"));
+    
+    persistent npoints xn thickness M B K gravitational_force;
+    persistent Kcontact Bcontact friction_damping;
+    if isempty(npoints)
+        npoints = ring.numNodalPoints;
+        for k=1:npoints
+            xn = [ xn; ring.NodalPoints(k).Coordinates ];
+        end
+        thickness = ring.Thickness;
+        M = ring.Inertia_Matrix;
+        B = ring.Damping_Matrix;
+        K = ring.Stiffness_Matrix;
+        gravitational_force = ring.Gravitational_Vector;
+        Kcontact = 1e+6; % N/m = kg/s^2 = 10^3 g/s^2
+        Bcontact = 0;
+        friction_damping = 20000; % Ns/m = 10^3 g/s
+    end
 
 
 
