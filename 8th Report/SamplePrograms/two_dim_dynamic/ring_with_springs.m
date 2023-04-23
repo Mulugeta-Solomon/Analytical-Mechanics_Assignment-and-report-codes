@@ -53,5 +53,11 @@ qinit = [ uninit; vninit; xcinit; vcinit ];
 %xcinit = xc_deformed;
 %qinit = [ uninit; vninit; xcinit; vcinit ];
 
+figure('position', [0, 0, 800, 400]);
+set(0,'defaultAxesFontSize',16);
+set(0,'defaultTextFontSize',16);
+floor_color = [0.85 0.85 0.85];
+
+
 
 
