@@ -29,4 +29,8 @@ ring = ring.calculate_damping_matrix;
 ring = ring.calculate_inertia_matrix;
 ring = ring.calculate_coefficient_matrices_for_Green_strain;
 
+% g = 9.8 m/s^2 = 980 cm/s^2
+grav = [0; -980];
+ring = ring.calculate_gravitational_vector(grav);
+
 
