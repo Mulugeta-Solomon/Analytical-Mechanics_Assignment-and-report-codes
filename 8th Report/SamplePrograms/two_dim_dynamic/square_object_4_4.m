@@ -103,3 +103,6 @@ for t = 0:0.01:tp+th+tf
     fr = fr + 1;
     disp(t);
 end
+
+M(fr) = getframe(gcf);
+
