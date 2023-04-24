@@ -63,3 +63,20 @@ q = [q_push; q_hold; q_free];
 figure('position', [0, 0, 400, 400]);
 set(0,'defaultAxesFontSize',16);
 set(0,'defaultTextFontSize',16);
+
+clf;
+for t = 0:0.1:tp+th+tf
+    fprintf("time %f\n", t);
+    index = nearest_index(time, t);
+    disps = reshape(q(index,1:npoints*2), [2,npoints]);
+    elastic.draw(disps);
+    hold off;
+    xlim([-10,40]);
+    ylim([-10,40]);
+    xticks([-10:10:40]);
+    yticks([-10:10:40]);
+    pbaspect([1 1 1]);
+    grid on;
+    filename = strcat('4_4/deform_', num2str(floor(1000*t),'%04d'), '.png');
+    saveas(gcf, filename, 'png');
+end
