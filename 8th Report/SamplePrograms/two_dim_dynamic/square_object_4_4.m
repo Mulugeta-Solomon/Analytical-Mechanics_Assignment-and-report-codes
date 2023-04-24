@@ -106,3 +106,9 @@ end
 
 M(fr) = getframe(gcf);
 
+v = VideoWriter('square_object_4_4', 'MPEG-4');
+open(v);
+writeVideo(v, M);
+close(v);
+
+
