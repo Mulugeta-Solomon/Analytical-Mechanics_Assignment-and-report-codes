@@ -133,3 +133,8 @@ function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
     vec = [ -K*un-B*vn; 2*alpha*(A'*vn-b1)+(alpha^2)*(A'*un-(b0+b1*t)) ];
     sol = coef\vec;
     dotvn = sol(1:2*npoints);
+    
+    dotq = [dotun; dotvn];
+end
+
+    
