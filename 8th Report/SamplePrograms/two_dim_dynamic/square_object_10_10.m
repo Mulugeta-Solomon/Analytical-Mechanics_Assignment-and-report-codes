@@ -123,3 +123,7 @@ function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
         B = body.Damping_Matrix;
         K = body.Stiffness_Matrix;
     end
+
+    un = q(1:2*npoints);
+    vn = q(2*npoints+1:4*npoints);
+    
