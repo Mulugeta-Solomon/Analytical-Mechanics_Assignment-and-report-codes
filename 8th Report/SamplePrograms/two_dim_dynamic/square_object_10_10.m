@@ -63,3 +63,7 @@ square_object_free = @(t,q) square_object_constraint_param(t,q, elastic, A,b0,b1
 time = [time_push; time_hold; time_free];
 q = [q_push; q_hold; q_free];
 
+figure('position', [0, 0, 400, 400]);
+set(0,'defaultAxesFontSize',16);
+set(0,'defaultTextFontSize',16);
+
