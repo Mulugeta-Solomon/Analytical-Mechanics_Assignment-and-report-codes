@@ -89,3 +89,21 @@ ts = time(1);
 te = time(end);
 fr = 1;
 clear M;
+for t = 0:0.01:tp+th+tf
+    index = nearest_index(time, t);
+    disps = reshape(q(index,1:npoints*2), [2,npoints]);
+    elastic.draw(disps);
+    hold off;
+    xlim([-10,40]);
+    ylim([-10,40]);
+    xticks([-10:10:40]);
+    yticks([-10:10:40]);
+    pbaspect([1 1 1]);
+    title(['time ' num2str(t,"%3.2f")]);
+    grid on;
+    drawnow;
+    M(fr) = getframe(gcf);
+    fr = fr + 1;
+    disp(t);
+end
+M(fr) = getframe(gcf);
