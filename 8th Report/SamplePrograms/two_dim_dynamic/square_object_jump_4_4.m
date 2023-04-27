@@ -133,3 +133,27 @@ function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
     
     dotq = [dotun; dotvn];
 end
+
+function dotq = square_object_free_param(t,q, body)
+    %disp(t);
+    
+    persistent npoints M B K;
+    if isempty(npoints)
+        npoints = body.numNodalPoints;
+        M = body.Inertia_Matrix;
+        B = body.Damping_Matrix;
+        K = body.Stiffness_Matrix;
+    end
+    
+    un = q(1:2*npoints);
+    vn = q(2*npoints+1:4*npoints);
+    
+    dotun = vn;
+    
+    coef = M;
+    vec = -K*un-B*vn + contact_force(t, body, un, vn);
+    sol = coef\vec;
+    dotvn = sol(1:2*npoints);
+    
+    dotq = [dotun; dotvn];
+end
