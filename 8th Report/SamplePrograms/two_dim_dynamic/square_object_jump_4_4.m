@@ -46,3 +46,10 @@ interval = [tp, tp+th];
 qinit = q_push(end,:);
 square_object_hold = @(t,q) square_object_constraint_param(t,q, elastic, A,b0,b1, alpha);
 [time_hold, q_hold] = ode15s(square_object_hold, interval, qinit);
+
+% releasing all constraints
+% ���ׂĂ̐�������
+interval = [tp+th, tp+th+tf];
+qinit = q_hold(end,:);
+square_object_free = @(t,q) square_object_free_param(t,q, elastic);
+[time_free, q_free] = ode15s(square_object_free, interval, qinit);
