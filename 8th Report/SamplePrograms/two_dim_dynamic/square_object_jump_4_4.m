@@ -109,3 +109,27 @@ v = VideoWriter('square_object_jump_4_4', 'MPEG-4');
 open(v);
 writeVideo(v, M);
 close(v);
+
+function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
+    %disp(t);
+    
+    persistent npoints M B K;
+    if isempty(npoints)
+        npoints = body.numNodalPoints;
+        M = body.Inertia_Matrix;
+        B = body.Damping_Matrix;
+        K = body.Stiffness_Matrix;
+    end
+    
+    un = q(1:2*npoints);
+    vn = q(2*npoints+1:4*npoints);
+    
+    dotun = vn;
+    
+    coef = [ M, -A; -A', zeros(size(A,2),size(A,2))];
+    vec = [ -K*un-B*vn; 2*alpha*(A'*vn-b1)+(alpha^2)*(A'*un-(b0+b1*t)) ];
+    sol = coef\vec;
+    dotvn = sol(1:2*npoints);
+    
+    dotq = [dotun; dotvn];
+end
