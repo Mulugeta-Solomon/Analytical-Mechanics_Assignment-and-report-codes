@@ -134,4 +134,15 @@ function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
     
     dotq = [dotun; dotvn];
 end
+
+function dotq = square_object_free_param(t,q, body)
+    %disp(t);
+    
+    persistent npoints M B K;
+    if isempty(npoints)
+        npoints = body.numNodalPoints;
+        M = body.Inertia_Matrix;
+        B = body.Damping_Matrix;
+        K = body.Stiffness_Matrix;
+    end
     
