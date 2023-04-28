@@ -105,3 +105,8 @@ for t = 0:0.01:tp+th+tf
     disp(t);
 end
 M(fr) = getframe(gcf);
+
+v = VideoWriter('square_object_jump_4_4_rectangle_elements', 'MPEG-4');
+open(v);
+writeVideo(v, M);
+close(v);
