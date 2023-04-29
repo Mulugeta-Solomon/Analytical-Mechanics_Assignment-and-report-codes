@@ -65,3 +65,21 @@ figure('position', [0, 0, 400, 800]);
 set(0,'defaultAxesFontSize',16);
 set(0,'defaultTextFontSize',16);
 floor_color = [0.85 0.85 0.85];
+
+clf;
+for t = 0:0.1:tp+th+tf
+    fprintf("time %f\n", t);
+    index = nearest_index(time, t);
+    disps = reshape(q(index,1:npoints*2), [2,npoints]);
+    elastic.draw_individual_rectangles(disps);
+    fill([40, 40, -10, -10], [-10, 0, 0, -10], floor_color, 'FaceAlpha', 0.2, 'EdgeColor','none');
+    hold off;
+    xlim([-10,40]);
+    ylim([-10,90]);
+    xticks([-10:10:40]);
+    yticks([-10:10:90]);
+    pbaspect([1 2 1]);
+    grid on;
+    filename = strcat('jump_10_10_rectangle_elements/deform_', num2str(floor(1000*t),'%04d'), '.png');
+    saveas(gcf, filename, 'png');
+end
