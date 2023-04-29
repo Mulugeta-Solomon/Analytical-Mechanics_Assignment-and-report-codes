@@ -83,3 +83,28 @@ for t = 0:0.1:tp+th+tf
     filename = strcat('jump_10_10_rectangle_elements/deform_', num2str(floor(1000*t),'%04d'), '.png');
     saveas(gcf, filename, 'png');
 end
+
+clf('reset');
+ts = time(1);
+te = time(end);
+fr = 1;
+clear M;
+for t = 0:0.01:tp+th+tf
+    index = nearest_index(time, t);
+    disps = reshape(q(index,1:npoints*2), [2,npoints]);
+    elastic.draw_individual_rectangles(disps);
+    fill([40, 40, -10, -10], [-10, 0, 0, -10], floor_color, 'FaceAlpha', 0.2, 'EdgeColor','none');
+    hold off;
+    xlim([-10,40]);
+    ylim([-10,90]);
+    xticks([-10:10:40]);
+    yticks([-10:10:90]);
+    pbaspect([1 2 1]);
+    title(['time ' num2str(t,"%3.2f")]);
+    grid on;
+    drawnow;
+    M(fr) = getframe(gcf);
+    fr = fr + 1;
+    disp(t);
+end
+M(fr) = getframe(gcf);
