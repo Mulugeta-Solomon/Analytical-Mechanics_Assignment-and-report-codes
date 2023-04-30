@@ -161,3 +161,24 @@ function dotq = square_object_free_param(t,q, body)
     
     dotq = [dotun; dotvn];
 end
+
+function f = contact_force(t, body, un, vn)
+
+    persistent npoints xn Kcontact Bcontact;
+    if isempty(npoints)
+        npoints = body.numNodalPoints;
+        for k=1:npoints
+            xn = [ xn; body.NodalPoints(k).Coordinates ];
+        end
+        Kcontact = 0.10e+6 * (4/10);
+        Bcontact = 0;
+    end
+    
+    rn = xn + un;
+    f = zeros(2*npoints,1);
+    for k=1:npoints
+        if rn(2*k) < 0
+            f(2*k) = -Kcontact*rn(2*k) -Bcontact*vn(2*k);
+        end
+    end
+end
