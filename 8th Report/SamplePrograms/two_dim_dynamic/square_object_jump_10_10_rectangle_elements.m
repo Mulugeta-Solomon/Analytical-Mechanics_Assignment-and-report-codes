@@ -113,3 +113,6 @@ v = VideoWriter('square_object_jump_10_10_rectangle_elements', 'MPEG-4');
 open(v);
 writeVideo(v, M);
 close(v);
+
+function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
+    %disp(t);
