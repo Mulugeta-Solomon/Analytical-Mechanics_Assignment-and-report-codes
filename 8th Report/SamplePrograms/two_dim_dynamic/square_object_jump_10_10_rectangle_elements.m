@@ -127,3 +127,5 @@ function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
 
     un = q(1:2*npoints);
     vn = q(2*npoints+1:4*npoints);
+
+    dotun = vn;
