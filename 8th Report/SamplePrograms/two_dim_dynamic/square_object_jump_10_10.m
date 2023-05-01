@@ -2,3 +2,4 @@
 % �����`�e�����̂̒��� (10&times;10)
 % g, cm, sec
 
+addpath('../two_dim_fea');
