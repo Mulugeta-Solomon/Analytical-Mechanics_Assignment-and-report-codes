@@ -28,3 +28,6 @@ elastic = elastic.calculate_inertia_matrix;
 tp = 0.5; vpush = 0.8*(height/3)/tp;
 th = 0.5;
 tf = 0.5;
+
+
+alpha = 1e+6;
