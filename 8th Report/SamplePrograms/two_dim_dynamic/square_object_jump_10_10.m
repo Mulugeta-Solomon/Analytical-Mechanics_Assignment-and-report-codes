@@ -64,3 +64,7 @@ interval = [tp+th, tp+th+tf];
 qinit = q_hold(end,:);
 square_object_free = @(t,q) square_object_free_param(t,q, elastic);
 [time_free, q_free] = ode15s(square_object_free, interval, qinit);
+
+
+time = [time_push; time_hold; time_free];
+q = [q_push; q_hold; q_free];
