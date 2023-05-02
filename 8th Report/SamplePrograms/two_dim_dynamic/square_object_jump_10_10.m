@@ -122,3 +122,14 @@ v = VideoWriter('square_object_jump_10_10', 'MPEG-4');
 open(v);
 writeVideo(v, M);
 close(v);
+
+function dotq = square_object_constraint_param(t,q, body, A,b0,b1, alpha)
+    %disp(t);
+
+    persistent npoints M B K;
+    if isempty(npoints)
+        npoints = body.numNodalPoints;
+        M = body.Inertia_Matrix;
+        B = body.Damping_Matrix;
+        K = body.Stiffness_Matrix;
+    end
