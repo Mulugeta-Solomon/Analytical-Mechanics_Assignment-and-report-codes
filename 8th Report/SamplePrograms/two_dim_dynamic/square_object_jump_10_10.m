@@ -92,3 +92,8 @@ for t = 0:0.1:tp+th+tf
     filename = strcat('jump_10_10/deform_', num2str(floor(1000*t),'%04d'), '.png');
     saveas(gcf, filename, 'png');
 end
+
+clf('reset');
+ts = time(1);
+te = time(end);
+fr = 1;
