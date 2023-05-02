@@ -160,5 +160,15 @@ function dotq = square_object_free_param(t,q, body)
 
     un = q(1:2*npoints);
     vn = q(2*npoints+1:4*npoints);
+
+    dotun = vn;
+    
+    coef = M;
+    vec = -K*un-B*vn + contact_force(t, body, un, vn);
+    sol = coef\vec;
+    dotvn = sol(1:2*npoints);
+    
+    dotq = [dotun; dotvn];
+end
     
     
