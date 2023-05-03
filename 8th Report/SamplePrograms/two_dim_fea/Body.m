@@ -54,3 +54,13 @@ classdef Body
                     i = vs(1); j = vs(2); k = vs(3);
                     edges = [ edges; i, j; j, k; k, i ];
                 end
+                edges_sorted = sort(edges,2);
+                n = size(edges_sorted, 1);
+                onlyone = 1:n;
+                for p=1:n-1
+                    [lia, loc] = ismember(edges_sorted(p,:), edges_sorted(p+1:n,:), 'rows');
+                    if lia
+                        onlyone(p) = 0;
+                        onlyone(p+loc) = 0;
+                    end
+                end
