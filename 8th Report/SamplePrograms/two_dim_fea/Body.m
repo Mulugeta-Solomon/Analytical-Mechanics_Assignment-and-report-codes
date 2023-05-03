@@ -109,3 +109,9 @@ classdef Body
                 obj.Triangles(p).lambda  = l;
                 obj.Triangles(p).mu      = m;
             end
+            for p=1:obj.numRectangles
+                obj.Rectangles(p).Density = rho;
+                obj.Rectangles(p).lambda  = l;
+                obj.Rectangles(p).mu      = m;
+            end
+        end
