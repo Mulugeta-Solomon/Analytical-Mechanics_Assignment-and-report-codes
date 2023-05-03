@@ -25,3 +25,12 @@ methods
             end
             obj.NodalPoints = pt;
             %
+            if ntris > 0
+                obj.numTriangles = ntris;
+                for p=1:ntris
+                    i = tris(p,1); j = tris(p,2); k = tris(p,3);
+                    tr(p) = Triangle(i, j, k, points(:,i), points(:,j), points(:,k), h);
+                end
+                obj.Triangles = tr;
+            end
+            %
