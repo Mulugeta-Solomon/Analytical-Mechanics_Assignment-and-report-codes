@@ -122,3 +122,8 @@ classdef Body
                 obj.Triangles(p).lambda_vis  = lv;
                 obj.Triangles(p).mu_vis      = mv;
             end
+            for p=1:obj.numRectangles
+                obj.Rectangles(p).lambda_vis  = lv;
+                obj.Rectangles(p).mu_vis      = mv;
+            end
+        end
