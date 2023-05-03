@@ -72,4 +72,6 @@ classdef Body
             for p=1:ncontours
                 [contour_p, area_p] = extract_contour(p, contours, order, obj.BoundaryEdges, points );
                 ct(p) = Contour(size(contour_p,1), contour_p, area_p);
-         
+            end
+            obj.Contours = ct;
+        end
