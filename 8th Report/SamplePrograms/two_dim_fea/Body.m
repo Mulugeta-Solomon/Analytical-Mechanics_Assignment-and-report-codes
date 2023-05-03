@@ -75,3 +75,18 @@ classdef Body
             end
             obj.Contours = ct;
         end
+
+        function obj = rectangle_elements(obj, nrects, rects)
+            h = obj.Thickness;
+            %
+            if nrects > 0
+                obj.numRectangles = nrects;
+                for p=1:nrects
+                    i = rects(p,1); j = rects(p,2); k = rects(p,3); l = rects(p,4);
+                    xi = obj.NodalPoints(i).Coordinates;
+                    xj = obj.NodalPoints(j).Coordinates;
+                    xl = obj.NodalPoints(l).Coordinates;
+                    rc(p) = Rectangle(i, j, k, l, xj(1)-xi(1), xl(2)-xi(2), h);
+                end
+                obj.Rectangles = rc;
+            end
