@@ -34,3 +34,15 @@ classdef Body
                     obj.Triangles = tr;
                 end
                 %
+                obj.Thickness = h;
+            
+                obj.J_lambda = zeros(2*obj.numNodalPoints, 2*obj.numNodalPoints);
+                obj.J_mu     = zeros(2*obj.numNodalPoints, 2*obj.numNodalPoints);
+                for p=1:obj.numTriangles
+                    tri = obj.Triangles(p);
+                    vs = tri.Vertices;
+                    i = vs(1); j = vs(2); k = vs(3);
+                    loc = [ 2*i-1, 2*i, 2*j-1, 2*j, 2*k-1, 2*k ];
+                    obj.J_lambda(loc,loc) = obj.J_lambda(loc,loc) + tri.Partial_J_lambda;
+                    obj.J_mu(loc,loc)     = obj.J_mu(loc,loc)     + tri.Partial_J_mu;
+                end
