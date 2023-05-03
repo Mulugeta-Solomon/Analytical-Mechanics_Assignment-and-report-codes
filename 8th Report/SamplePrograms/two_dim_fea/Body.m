@@ -115,3 +115,10 @@ classdef Body
                 obj.Rectangles(p).mu      = m;
             end
         end
+        function obj = viscous_parameters(obj, lv, mv)
+            obj.lambda_vis = lv;
+            obj.mu_vis     = mv;
+            for p=1:obj.numTriangles
+                obj.Triangles(p).lambda_vis  = lv;
+                obj.Triangles(p).mu_vis      = mv;
+            end
