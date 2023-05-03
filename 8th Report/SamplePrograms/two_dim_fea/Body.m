@@ -99,3 +99,13 @@ classdef Body
                 obj.J_mu(loc,loc)     = obj.J_mu(loc,loc)     + rct.Partial_J_mu;
             end
         end
+
+        function obj = mechanical_parameters(obj, rho, l, m)
+            obj.Density = rho;
+            obj.lambda = l;
+            obj.mu     = m;
+            for p=1:obj.numTriangles
+                obj.Triangles(p).Density = rho;
+                obj.Triangles(p).lambda  = l;
+                obj.Triangles(p).mu      = m;
+            end
