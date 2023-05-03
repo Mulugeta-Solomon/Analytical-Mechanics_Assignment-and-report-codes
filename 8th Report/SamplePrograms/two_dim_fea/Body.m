@@ -17,3 +17,11 @@ classdef Body
         Gravitational_Vector;
         coef_order_one; coef_order_two; c2i; c2j; coef_order_three; c3i; c3j; c3k; % coefficient matrices for Green strain based forces
     end
+methods
+        function obj = Body(npoints, points, ntris, tris, h)
+            obj.numNodalPoints = npoints;
+            for k=1:npoints
+                pt(k) = NodalPoint(points(:,k));
+            end
+            obj.NodalPoints = pt;
+            %
