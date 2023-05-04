@@ -145,3 +145,8 @@ classdef Body
                tri = obj.Triangles(p);
                energy = energy + tri.partial_strain_potential_energy_Green_strain(disps);
             end
+            for p=1:obj.numRectangles
+               rct = obj.Rectangles(p);
+               energy = energy + rct.partial_strain_potential_energy_Green_strain(disps);
+            end
+        end
