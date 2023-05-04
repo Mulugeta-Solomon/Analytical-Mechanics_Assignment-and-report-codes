@@ -158,4 +158,11 @@ classdef Body
                energy = energy + tri.partial_gravitational_potential_energy(disps, grav);
             end
         end
+
+        function output = draw( obj, disps, color )
+            arguments
+                obj;
+                disps = zeros(2, obj.numNodalPoints);
+                color = [0.9, 0.9, 0.9];
+            end
         
