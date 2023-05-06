@@ -296,5 +296,8 @@ classdef Body
                 obj.Inertia_Matrix(loc,loc) = obj.Inertia_Matrix(loc,loc) + M_p;
             end
         end
+
+        function obj = calculate_gravitational_vector(obj, g)
+            obj.Gravitational_Vector = zeros(2*obj.numNodalPoints, 1);
         
         
