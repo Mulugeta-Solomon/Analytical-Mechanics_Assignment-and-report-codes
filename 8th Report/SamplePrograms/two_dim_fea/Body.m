@@ -423,6 +423,12 @@ classdef Body
                 obj; cl;
                 k = obj.numSubRegions;
             end
+            obj.SubRegions(k).color = cl;
+            if obj.SubRegions(k).Index_Triangles
+                for p = obj.SubRegions(k).Index_Triangles
+                    obj.Triangles(p).color = cl;
+                end
+            end
 	
         
         
