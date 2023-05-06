@@ -217,7 +217,19 @@ classdef Body
                 i = vs(1); j = vs(2); k = vs(3); l = vs(4);
                 np = obj.NodalPoints;
                 xi = np(i).Coordinates + disps(:,i);
-               
+                xj = np(j).Coordinates + disps(:,j);
+                xk = np(k).Coordinates + disps(:,k);
+                xl = np(l).Coordinates + disps(:,l);
+                points = [ xi, xj, xk, xl, xi ];
+                plot(points(1,:), points(2,:), 'k-');
+                if isempty(obj.Rectangles(p).color)
+                    fill(points(1,:), points(2,:), color);
+                else
+                    fill(points(1,:), points(2,:), obj.Rectangles(p).color)
+                end
+                hold on;
+            end
+        end
         
         
         
