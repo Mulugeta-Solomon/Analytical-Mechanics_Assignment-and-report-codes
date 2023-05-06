@@ -334,5 +334,13 @@ classdef Body
                     index_rects = setdiff(index_rects, common_rects);
                 end
             end
+            index_npoints = [];
+            if index
+                for p=index
+                    tri = obj.Triangles(p);
+                    vs = tri.Vertices;
+                    index_npoints = union(index_npoints, vs);
+                end
+            end
         
         
