@@ -275,4 +275,7 @@ classdef Body
             end
         end
         
+        function obj = calculate_inertia_matrix(obj)
+            obj.Inertia_Matrix = zeros(2*obj.numNodalPoints, 2*obj.numNodalPoints);
+            %
         
