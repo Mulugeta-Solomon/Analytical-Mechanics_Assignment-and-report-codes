@@ -466,6 +466,10 @@ classdef Body
                 forces(2*k-1:2*k) = forces(2*k-1:2*k) + fk;
             end
         end
+        function obj = calculate_coefficient_matrices_for_Green_strain(obj)
+            [ obj.coef_order_one, obj.coef_order_two, obj.c2i, obj.c2j, obj.coef_order_three, obj.c3i, obj.c3j, obj.c3k ] = ...
+                calcuclate_coefficient_matrices_for_Green_strain_forces (obj);
+        end
 	
         
         
