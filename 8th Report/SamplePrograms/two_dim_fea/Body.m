@@ -448,6 +448,11 @@ classdef Body
                 forces(2*k-1:2*k) = forces(2*k-1:2*k) + fk;
             end
         end
+
+        function forces = nodal_forces_Cauchy_strain(obj, disps)
+            un = reshape(disps, [2*obj.numNodalPoints, 1]);
+            forces = - obj.Stiffness_Matrix*un;
+        end
 	
         
         
