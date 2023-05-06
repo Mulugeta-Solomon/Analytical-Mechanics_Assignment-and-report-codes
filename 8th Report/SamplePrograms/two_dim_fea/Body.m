@@ -350,6 +350,12 @@ classdef Body
                 end
             end
         end
+
+        function obj = define_subregion(obj, index, index_rects)
+            arguments
+                obj; index;
+                index_rects = [];
+            end
         
         
         
