@@ -453,6 +453,10 @@ classdef Body
             un = reshape(disps, [2*obj.numNodalPoints, 1]);
             forces = - obj.Stiffness_Matrix*un;
         end
+
+        function forces = nodal_forces_Green_strain_original(obj, disps)
+            forces = zeros(2*obj.numNodalPoints,1);
+           
 	
         
         
