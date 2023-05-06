@@ -429,6 +429,12 @@ classdef Body
                     obj.Triangles(p).color = cl;
                 end
             end
+            if obj.SubRegions(k).Index_Rectangles
+                for p = obj.SubRegions(k).Index_Rectangles
+                    obj.Rectangles(p).color = cl;
+                end
+            end
+        end
 	
         
         
