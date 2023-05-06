@@ -252,5 +252,9 @@ classdef Body
                 obj.Stiffness_Matrix(loc,loc) = obj.Stiffness_Matrix(loc,loc) + K_p;
             end
         end
+
+        function obj = calculate_damping_matrix(obj)
+            obj.Damping_Matrix = zeros(2*obj.numNodalPoints, 2*obj.numNodalPoints);
+            %
         
         
