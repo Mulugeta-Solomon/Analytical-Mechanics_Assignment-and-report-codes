@@ -243,5 +243,14 @@ classdef Body
                 obj.Stiffness_Matrix(loc,loc) = obj.Stiffness_Matrix(loc,loc) + K_p;
             end
             %
+            for p=1:obj.numRectangles
+                rct = obj.Rectangles(p);
+                vs = rct.Vertices;
+                i = vs(1); j = vs(2); k = vs(3); l = vs(4);
+                [obj.Rectangles(p), K_p] = rct.partial_stiffness_matrix;
+                loc = [ 2*i-1, 2*i, 2*j-1, 2*j, 2*k-1, 2*k, 2*l-1, 2*l ];
+                obj.Stiffness_Matrix(loc,loc) = obj.Stiffness_Matrix(loc,loc) + K_p;
+            end
+        end
         
         
