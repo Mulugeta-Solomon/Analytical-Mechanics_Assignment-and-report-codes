@@ -231,5 +231,8 @@ classdef Body
             end
         end
         
+        function obj = calculate_stiffness_matrix(obj)
+            obj.Stiffness_Matrix = zeros(2*obj.numNodalPoints, 2*obj.numNodalPoints);
+            %
         
         
