@@ -456,7 +456,16 @@ classdef Body
 
         function forces = nodal_forces_Green_strain_original(obj, disps)
             forces = zeros(2*obj.numNodalPoints,1);
-           
+            for p=1:obj.numTriangles
+                tri = obj.Triangles(p);
+                vs = tri.Vertices;
+                i = vs(1); j = vs(2); k = vs(3);
+                [fi, fj, fk] = tri.nodal_forces_Green_strain(disps(:,i), disps(:,j), disps(:,k));
+                forces(2*i-1:2*i) = forces(2*i-1:2*i) + fi;
+                forces(2*j-1:2*j) = forces(2*j-1:2*j) + fj;
+                forces(2*k-1:2*k) = forces(2*k-1:2*k) + fk;
+            end
+        end
 	
         
         
