@@ -318,5 +318,14 @@ classdef Body
             end
         end
         
+        function [index, index_rects, index_npoints] = extract_index_for_subregion(obj, index, index_rects)
+            for r=1:obj.numSubRegions
+                common = intersect(index, obj.SubRegions(r).Index_Triangles);
+                if common
+                    fprintf("%d ", common);
+                    fprintf('already in another subregion\n');
+                    index = setdiff(index, common);
+                end
+                %
         
         
