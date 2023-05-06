@@ -327,5 +327,12 @@ classdef Body
                     index = setdiff(index, common);
                 end
                 %
+                common_rects = intersect(index_rects, obj.SubRegions(r).Index_Rectangles);
+                if common_rects
+                    fprintf("%d ", common_rects);
+                    fprintf('rectangles already in another subregion\n');
+                    index_rects = setdiff(index_rects, common_rects);
+                end
+            end
         
         
