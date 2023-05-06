@@ -417,6 +417,12 @@ classdef Body
                 obj.Triangles(p).mu_vis      = mv;
             end
         end
+
+        function obj = subregion_color(obj, cl, k)
+            arguments
+                obj; cl;
+                k = obj.numSubRegions;
+            end
 	
         
         
