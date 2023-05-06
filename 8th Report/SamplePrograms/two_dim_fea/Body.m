@@ -384,6 +384,10 @@ classdef Body
                 pJl(loc,loc) = pJl(loc,loc) + tri.Partial_J_lambda;
                 pJm(loc,loc) = pJm(loc,loc) + tri.Partial_J_mu;
             end
+
+            obj.SubRegions(r).Partial_J_lambda = pJl;
+            obj.SubRegions(r).Partial_J_mu     = pJm;
+        end
         
         
         
