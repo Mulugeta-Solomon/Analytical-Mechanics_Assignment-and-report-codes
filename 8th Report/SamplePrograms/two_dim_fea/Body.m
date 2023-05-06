@@ -234,5 +234,14 @@ classdef Body
         function obj = calculate_stiffness_matrix(obj)
             obj.Stiffness_Matrix = zeros(2*obj.numNodalPoints, 2*obj.numNodalPoints);
             %
+            for p=1:obj.numTriangles
+                tri = obj.Triangles(p);
+                vs = tri.Vertices;
+                i = vs(1); j = vs(2); k = vs(3);
+                [obj.Triangles(p), K_p] = tri.partial_stiffness_matrix;
+                loc = [ 2*i-1, 2*i, 2*j-1, 2*j, 2*k-1, 2*k ];
+                obj.Stiffness_Matrix(loc,loc) = obj.Stiffness_Matrix(loc,loc) + K_p;
+            end
+            %
         
         
