@@ -211,6 +211,13 @@ classdef Body
                 disps = zeros(2, obj.numNodalPoints);
                 color = [0.9, 0.9, 0.9];
             end
+            for p=1:obj.numRectangles
+                rct = obj.Rectangles(p);
+                vs = rct.Vertices;
+                i = vs(1); j = vs(2); k = vs(3); l = vs(4);
+                np = obj.NodalPoints;
+                xi = np(i).Coordinates + disps(:,i);
+               
         
         
         
