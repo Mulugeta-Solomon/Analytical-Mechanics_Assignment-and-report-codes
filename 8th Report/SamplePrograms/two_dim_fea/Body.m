@@ -356,6 +356,10 @@ classdef Body
                 obj; index;
                 index_rects = [];
             end
+
+            if isempty(obj.numSubRegions)
+                obj.numSubRegions = 0;
+            end
         
         
         
