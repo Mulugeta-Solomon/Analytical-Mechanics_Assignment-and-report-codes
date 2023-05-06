@@ -366,6 +366,13 @@ classdef Body
             obj.SubRegions = [ obj.SubRegions, SubRegion(index, index_rects, index_npoints) ];
             obj = obj.subregion_partial_connection_matrices;
         end
+
+        function obj = subregion_partial_connection_matrices(obj)
+            r = obj.numSubRegions;
+            npoints = obj.SubRegions(r).numNodalPoints;
+            pJl = zeros(2*npoints, 2*npoints);
+            pJm = zeros(2*npoints, 2*npoints);
+            
         
         
         
