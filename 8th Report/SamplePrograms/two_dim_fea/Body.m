@@ -388,6 +388,12 @@ classdef Body
             obj.SubRegions(r).Partial_J_lambda = pJl;
             obj.SubRegions(r).Partial_J_mu     = pJm;
         end
+
+        function obj = subregion_mechanical_parameters(obj, rho, l, m, k)
+            arguments
+                obj; rho; l; m;
+                k = obj.numSubRegions;
+            end
         
         
         
