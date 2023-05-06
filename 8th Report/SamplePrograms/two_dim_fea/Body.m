@@ -404,6 +404,12 @@ classdef Body
                 obj.Triangles(p).mu      = m;
             end
         end
+
+        function obj = subregion_viscous_parameters(obj, lv, mv, k)
+            arguments
+                obj; lv; mv;
+                k = obj.numSubRegions;
+            end
         
         
         
