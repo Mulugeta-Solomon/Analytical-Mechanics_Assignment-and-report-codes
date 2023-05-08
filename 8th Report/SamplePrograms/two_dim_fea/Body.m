@@ -486,6 +486,12 @@ classdef Body
             np = obj.numNodalPoints;
             forces = reshape( [ pdiv(1:np), pdiv(np+1:2*np) ]', [ 2*np,1] );
         end
+
+        function area = surrounded_area(obj, index, disps)
+            arguments
+                obj; index;
+                disps = zeros(2,length(index));
+            end
 	
         
         
