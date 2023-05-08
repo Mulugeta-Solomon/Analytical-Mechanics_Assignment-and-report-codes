@@ -492,6 +492,13 @@ classdef Body
                 obj; index;
                 disps = zeros(2,length(index));
             end
+
+            cords = [];
+            for i = index
+                cords = [ cords, obj.NodalPoints(i).Coordinates ];
+            end
+            area = polygon_area (cords + disps);
+        end
 	
         
         
