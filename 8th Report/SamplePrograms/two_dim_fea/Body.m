@@ -499,6 +499,7 @@ classdef Body
             end
             area = polygon_area (cords + disps);
         end
+        
         function obj = surrounded_area_fill(obj, index, disps, color)
             arguments
                 obj; index;
