@@ -513,6 +513,12 @@ classdef Body
             cords = cords + disps;
             fill( cords(1,:), cords(2,:), color );
         end
+        function obj = surrounded_area_fill(obj, index, disps, color)
+            arguments
+                obj; index;
+                disps = zeros(2,length(index));
+                color = [0.9, 0.9, 0.9];
+            end
 	
         
         
