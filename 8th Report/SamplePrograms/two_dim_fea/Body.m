@@ -549,13 +549,7 @@ classdef Body
                 obj;
                 disps = zeros(2,obj.numNodalPoints);
             end
-            position = [];
-            for i=1:obj.numNodalPoints
-                position = [ position, obj.NodalPoints(i).Coordinates + disps(:,i) ];
-            end
-        end
-    end
-end
+    
 
             
 	
