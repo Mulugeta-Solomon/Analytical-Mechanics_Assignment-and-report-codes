@@ -39,3 +39,12 @@ for k=1:body.numTriangles
         id3p(k,k,i); id3p(k,k,j); id3p(k,k,k) ];
     id3 = sort(unique(id3));
 end
+
+
+id3 = sort(unique(id3));
+c3k = rem(id3,np1);
+c3ij = (id3-c3k)/np1;
+c3j = rem(c3ij,np1);
+c3i = (c3ij-c3j)/np1;
+
+%%%
