@@ -65,3 +65,11 @@ for k=1:body.numTriangles
     col = [ ijk, np+ijk ];
     coef_order_one(row,col) = coef_order_one(row,col) + mat;
 end
+
+%coef_order_one;
+%term_order_one = coef_order_one * [ c_u; c_v ];
+
+odot = @(x,y) [ x(1)*y; x(2)*y; x(3)*y ];
+odot3 = @(x,y,z) [ x(1)*y(1)*z; x(1)*y(2)*z; x(1)*y(3)*z; ...
+                   x(2)*y(1)*z; x(2)*y(2)*z; x(2)*y(3)*z; ...
+                   x(3)*y(1)*z; x(3)*y(2)*z; x(3)*y(3)*z ];
