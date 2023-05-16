@@ -51,3 +51,17 @@ c3i = (c3ij-c3j)/np1;
 
 np2 = size(id2,1);
 np3 = size(id3,1);
+
+coef_order_one = zeros(2*np, 2*np);
+for k=1:body.numTriangles
+    tri = body.Triangles(k);
+    vs = tri.Vertices;
+    i = vs(1); j = vs(2); k = vs(3);
+    a = tri.vector_a; b = tri.vector_b;
+    mat = tri.lambda * tri.Area * tri.Thickness * [ a*a', a*b'; b*a', b*b' ] + ...
+          tri.mu     * tri.Area * tri.Thickness * [ 2*a*a'+b*b', b*a'; a*b', 2*b*b'+a*a' ];
+    ijk = [ i, j, k ];
+    row = [ ijk, np+ijk ];
+    col = [ ijk, np+ijk ];
+    coef_order_one(row,col) = coef_order_one(row,col) + mat;
+end
