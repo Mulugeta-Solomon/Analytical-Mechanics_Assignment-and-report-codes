@@ -48,3 +48,6 @@ c3j = rem(c3ij,np1);
 c3i = (c3ij-c3j)/np1;
 
 %%%
+
+np2 = size(id2,1);
+np3 = size(id3,1);
