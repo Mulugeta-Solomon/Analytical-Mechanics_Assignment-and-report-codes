@@ -111,3 +111,7 @@ odot3 = @(x,y,z) [ x(1)*y(1)*z; x(1)*y(2)*z; x(1)*y(3)*z; ...
                    x(2)*y(1)*z; x(2)*y(2)*z; x(2)*y(3)*z; ...
                    x(3)*y(1)*z; x(3)*y(2)*z; x(3)*y(3)*z ];
 
+
+
+%coef_order_two;
+%term_order_two = coef_order_two * [ c_uu; c_uv; c_vv ];
