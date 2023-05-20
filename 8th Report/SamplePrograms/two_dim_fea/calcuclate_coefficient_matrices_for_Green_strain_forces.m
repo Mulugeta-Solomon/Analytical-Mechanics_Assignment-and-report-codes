@@ -163,3 +163,7 @@ for k=1:body.numTriangles
     col = [ ijk3, np3+ijk3 ];
     coef_order_three(row,col) = coef_order_three(row,col) + mat;
 end
+
+%coef_order_three;
+%term_order_three_u = coef_order_three * [ c_uuu; c_uvv ];
+%term_order_three_v = coef_order_three * [ c_vuu; c_vvv ];
