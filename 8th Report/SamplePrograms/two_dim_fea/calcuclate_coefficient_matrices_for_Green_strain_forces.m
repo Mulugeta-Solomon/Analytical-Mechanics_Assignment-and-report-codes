@@ -167,3 +167,11 @@ end
 %coef_order_three;
 %term_order_three_u = coef_order_three * [ c_uuu; c_uvv ];
 %term_order_three_v = coef_order_three * [ c_vuu; c_vvv ];
+
+
+%term_order_three = [ term_order_three_u; term_order_three_v ];
+
+%Green_strain_force = - term_order_one - term_order_two - term_order_three
+%fn = elastic.nodal_forces_Green_strain(reshape(un,[2,np]))
+
+end
